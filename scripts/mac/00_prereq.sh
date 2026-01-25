@@ -23,6 +23,10 @@ if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
   if command -v curl >/dev/null 2>&1; then
     log "oh-my-zsh not found; installing"
     KEEP_ZSHRC=yes RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [[ -f "${HOME}/.zshrc" ]] && ! grep -qx 'source ~/.zprofile' "${HOME}/.zshrc"; then
+      log "Appending 'source ~/.zprofile' to ~/.zshrc"
+      printf '\nsource ~/.zprofile\n' >> "${HOME}/.zshrc"
+    fi
   else
     log "oh-my-zsh missing; install via: sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
   fi

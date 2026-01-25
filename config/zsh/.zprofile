@@ -5,6 +5,14 @@ if [[ -f "${HOME}/.config/secrets/env" ]]; then
   source "${HOME}/.config/secrets/env"
 fi
 
+# Oh My Zsh config (managed by .zprofile).
+export ZSH="${HOME}/.oh-my-zsh"
+ZSH_THEME="ys"
+plugins=(autojump macos zsh-autosuggestions zsh-syntax-highlighting)
+if [[ -f "${ZSH}/oh-my-zsh.sh" ]]; then
+  source "${ZSH}/oh-my-zsh.sh"
+fi
+
 # Homebrew shell env (Apple Silicon default path).
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
