@@ -22,10 +22,10 @@ if [[ -f "${BREWFILE}" ]]; then
       continue
     fi
 
-    app_names="$(brew info --cask "${cask}" 2>/dev/null | awk -F': ' '/^App: /{print $2}')"
+    app_names="$(brew info --cask "${cask}" 2>/dev/null | awk '/\\(App\\)$/ {print $1}')"
     if [[ -n "${app_names}" ]]; then
       while IFS= read -r app; do
-        if [[ -d "/Applications/${app}" ]]; then
+        if [[ -d "/Applications/${app}" || -d "${HOME}/Applications/${app}" ]]; then
           log "Found ${app} in /Applications; skipping cask ${cask}"
           cask_skip_list+=("${cask}")
           break
