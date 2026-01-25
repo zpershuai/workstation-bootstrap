@@ -1,6 +1,7 @@
 tap "farion1231/ccswitch"
 
 brew "autojump"
+brew "the_silver_searcher"
 brew "bat"
 brew "brotli"
 brew "c-ares"
