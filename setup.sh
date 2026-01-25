@@ -16,6 +16,7 @@ case "${OS_NAME}" in
       die "Missing environment gate: scripts/mac/check_env.sh"
     fi
     run_module "${ROOT_DIR}/scripts/mac/00_prereq.sh"
+    run_module "${ROOT_DIR}/scripts/mac/05_fonts.sh"
     run_module "${ROOT_DIR}/scripts/mac/10_brew.sh"
     run_module "${ROOT_DIR}/scripts/mac/20_npm.sh"
     run_module "${ROOT_DIR}/scripts/mac/25_repos.sh"
