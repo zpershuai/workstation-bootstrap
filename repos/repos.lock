@@ -1,0 +1,5 @@
+# name  url  dest  ref(optional)
+# Assumption: zpershuai repos use branch "main".
+
+nvim  git@github.com:zpershuai/nvim.git  ~/.dotfiles.d/repos/nvim  main
+tmux  git@github.com:zpershuai/tmux.git  ~/.dotfiles.d/repos/tmux  main

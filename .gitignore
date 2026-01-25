@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.envrc
+
+# Backup files (created by setup script)
+.dotfiles_backup/
+
+# Secrets
+config/secrets/
+config/**/secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+.env
+.env.local
+.secrets/
+
+# Optional local overrides
+config/**/.local
+
+# External repos that may be cloned locally
+.dotfiles.d/
+
+# Temporary files
+*.tmp
+*.bak
+*.log

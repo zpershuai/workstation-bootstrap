@@ -10,6 +10,11 @@ OS_NAME="$(uname -s)"
 
 case "${OS_NAME}" in
   Darwin)
+    if [[ -f "${ROOT_DIR}/scripts/mac/check_env.sh" ]]; then
+      bash "${ROOT_DIR}/scripts/mac/check_env.sh"
+    else
+      die "Missing environment gate: scripts/mac/check_env.sh"
+    fi
     run_module "${ROOT_DIR}/scripts/mac/00_prereq.sh"
     run_module "${ROOT_DIR}/scripts/mac/10_brew.sh"
     run_module "${ROOT_DIR}/scripts/mac/20_npm.sh"

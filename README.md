@@ -198,6 +198,55 @@ bash scripts/mac/25_repos.sh
 
 ⸻
 
+Environment Gate (check_env)
+
+Why: catch missing tools and auth issues before cloning external repos.
+
+Run:
+	bash scripts/mac/check_env.sh
+
+Common failures & fixes
+	•	Missing SSH key:
+	•	ssh-keygen -t ed25519 -C "your_email@example.com"
+	•	eval "$(ssh-agent -s)"
+	•	ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+	•	pbcopy < ~/.ssh/id_ed25519.pub
+	•	Add the public key to your Git host
+	•	Permission denied(publickey):
+	•	ssh -T git@github.com
+	•	Verify the key is added to the Git host and loaded in ssh-agent
+	•	repos.lock format error:
+	•	Each line must be: name url dest [ref]
+	•	gh not logged in (HTTPS repos):
+	•	gh auth login
+
+⸻
+
+Dotfiles (macOS)
+
+Design principles
+	•	Idempotent: safe to run repeatedly
+	•	Backups: existing files are moved to ~/.dotfiles_backup/<timestamp>/
+	•	External repos: git-backed configs are cloned into ~/.dotfiles.d/repos and linked
+
+Run dotfiles steps
+	•	Sync external repos:
+	•	bash scripts/mac/25_repos.sh
+	•	Link configs:
+	•	bash scripts/mac/30_dotfiles.sh
+
+Add a new config
+	•	IN_REPO: put file/dir under config/ and add a safe_link in scripts/mac/30_dotfiles.sh
+	•	EXTERNAL_REPO: add entry to repos/repos.lock and link from ~/.dotfiles.d/repos/<name>
+
+Secrets
+	•	Local secrets live at ~/.config/secrets/env (ignored by git)
+	•	Source it from shell config if present
+	•	Git identity stays in ~/.gitconfig.local
+
+
+⸻
+
 Safety & secrets
 	•	Do NOT commit secrets:
 	•	API keys, tokens, private SSH keys, personal certificates
@@ -228,4 +277,3 @@ Non-goals (for now)
 	•	Windows initialization
 	•	Complex UI/interaction flows
 	•	Full system preference automation (only if needed later)
-

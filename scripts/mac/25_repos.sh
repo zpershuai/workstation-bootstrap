@@ -10,17 +10,14 @@ if [[ ! -f "${MANIFEST}" ]]; then
   exit 0
 fi
 
-if ! command -v git >/dev/null 2>&1; then
-  die "git is required to sync external repos"
-fi
+need_cmd git
 
 log "Syncing external config repos"
 while read -r name url dest ref; do
   [[ -z "${name}" || "${name}" == \#* ]] && continue
 
   if [[ -z "${url}" || -z "${dest}" ]]; then
-    log "Invalid entry for ${name}; expected: name url dest [ref]"
-    continue
+    die "Invalid entry: ${name} (expected: name url dest [ref])"
   fi
 
   dest="${dest/#\~/$HOME}"
@@ -28,14 +25,24 @@ while read -r name url dest ref; do
 
   if [[ ! -d "${dest}/.git" ]]; then
     log "Cloning ${name} -> ${dest}"
-    git clone "${url}" "${dest}"
+    if ! git clone "${url}" "${dest}"; then
+      die "Clone failed for ${name}. Check SSH access (e.g., ssh -T git@github.com) or network."
+    fi
   fi
 
-  git -C "${dest}" fetch --all --tags
+  if ! git -C "${dest}" fetch --all --tags; then
+    die "Fetch failed for ${name}. Check SSH access or network."
+  fi
+
   if [[ -n "${ref:-}" ]]; then
-    git -C "${dest}" checkout "${ref}"
-  else
-    git -C "${dest}" checkout "$(git -C "${dest}" symbolic-ref --short HEAD)"
+    if ! git -C "${dest}" checkout "${ref}"; then
+      die "Checkout failed for ${name} (${ref}). Verify ref exists."
+    fi
+  fi
+
+  if [[ -n "${ref:-}" ]] && git -C "${dest}" show-ref --quiet "refs/heads/${ref}"; then
+    git -C "${dest}" pull --ff-only
+  elif [[ -z "${ref:-}" ]]; then
     git -C "${dest}" pull --ff-only
   fi
 done < "${MANIFEST}"

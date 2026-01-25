@@ -8,6 +8,13 @@ log() {
   printf '[dotfiles] %s\n' "$*"
 }
 
+need_cmd() {
+  local cmd="$1"
+  if ! command -v "${cmd}" >/dev/null 2>&1; then
+    die "Missing required command: ${cmd}"
+  fi
+}
+
 die() {
   printf '[dotfiles] ERROR: %s\n' "$*" >&2
   exit 1

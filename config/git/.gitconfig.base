@@ -1,0 +1,14 @@
+# Shared Git settings (no personal identity here).
+
+[core]
+  editor = nvim
+  autocrlf = input
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = false
+
+[fetch]
+  prune = true

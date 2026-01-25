@@ -7,10 +7,19 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib.sh"
 log "Linking dotfiles"
 
 safe_link "${ROOT_DIR}/config/zsh/.zshrc" "${HOME}/.zshrc"
+safe_link "${ROOT_DIR}/config/zsh/.zprofile" "${HOME}/.zprofile"
+safe_link "${ROOT_DIR}/config/shell/.profile" "${HOME}/.profile"
 safe_link "${ROOT_DIR}/config/tmux/.tmux.conf" "${HOME}/.tmux.conf"
 safe_link "${ROOT_DIR}/config/git/.gitconfig" "${HOME}/.gitconfig"
 
+ensure_dir "${HOME}/.config/git"
+safe_link "${ROOT_DIR}/config/git/.gitconfig.base" "${HOME}/.config/git/.gitconfig.base"
+
 ensure_dir "${HOME}/.config"
-if [[ -d "${ROOT_DIR}/config/nvim" ]]; then
-  safe_link "${ROOT_DIR}/config/nvim" "${HOME}/.config/nvim"
-fi
+safe_link "${ROOT_DIR}/config/fish" "${HOME}/.config/fish"
+safe_link "${ROOT_DIR}/config/iterm2" "${HOME}/.config/iterm2"
+safe_link "${ROOT_DIR}/config/karabiner" "${HOME}/.config/karabiner"
+safe_link "${ROOT_DIR}/config/uv" "${HOME}/.config/uv"
+
+safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
+safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
