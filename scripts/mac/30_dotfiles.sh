@@ -23,3 +23,5 @@ safe_link "${ROOT_DIR}/config/uv" "${HOME}/.config/uv"
 
 safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
+
+safe_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"

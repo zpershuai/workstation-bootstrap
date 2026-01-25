@@ -1,0 +1,36 @@
+{
+  "backupPath": "/Users/tentzp/.cc-switch/backups/env-backup-20251223_054757.json",
+  "timestamp": "20251223_054757",
+  "conflicts": [
+    {
+      "varName": "ANTHROPIC_BASE_URL",
+      "varValue": "https://open.bigmodel.cn/api/anthropic",
+      "sourceType": "file",
+      "sourcePath": "/Users/tentzp/.zprofile:111"
+    },
+    {
+      "varName": "ANTHROPIC_AUTH_TOKEN",
+      "varValue": "b7999a7351004a34aa3c094f092f2de4.2dm8JRraRLx5TXjB",
+      "sourceType": "file",
+      "sourcePath": "/Users/tentzp/.zprofile:112"
+    },
+    {
+      "varName": "ANTHROPIC_DEFAULT_OPUS_MODEL",
+      "varValue": "GLM-4.6",
+      "sourceType": "file",
+      "sourcePath": "/Users/tentzp/.zprofile:114"
+    },
+    {
+      "varName": "ANTHROPIC_DEFAULT_SONNET_MODEL",
+      "varValue": "GLM-4.6",
+      "sourceType": "file",
+      "sourcePath": "/Users/tentzp/.zprofile:115"
+    },
+    {
+      "varName": "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+      "varValue": "GLM-4.5-Air",
+      "sourceType": "file",
+      "sourcePath": "/Users/tentzp/.zprofile:116"
+    }
+  ]
+}
