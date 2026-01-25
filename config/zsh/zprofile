@@ -18,6 +18,32 @@ if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# autojump (Homebrew install)
+if [[ -f "/opt/homebrew/etc/profile.d/autojump.sh" ]]; then
+  source "/opt/homebrew/etc/profile.d/autojump.sh"
+fi
+
+# dotfiles bin
+export PATH="${HOME}/.dotfiles/bin:${PATH}"
+
+# tmux: auto-attach when using SSH
+if [[ -z "${TMUX:-}" && -n "${SSH_CONNECTION:-}" ]]; then
+  "${HOME}/.dotfiles/bin/tmwork"
+fi
+
+# aliases
+alias cat="bat"
+alias tmatt="tmux att -t"
+alias tmls="tmux ls"
+alias tmnew="tmux new-session -s"
+alias tmkill="tmux kill-session -t"
+alias vim="nvim"
+alias ls="${HOME}/.dotfiles/bin/ls"
+
+export VISUAL="nvim"
+export EDITOR="nvim"
+export LESSCHARSET="utf-8"
+
 # Add user-local bin paths.
 export PATH="${HOME}/.local/bin:${PATH}"
 
