@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+tmux ls | awk '{print $1}' | while read line; do tmux kill-session -t ${line%:}; done

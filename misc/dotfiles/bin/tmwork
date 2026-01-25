@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+cmd=$(which tmux)      # tmux path
+cmdload=$(which tmuxp)      # tmux path
+
+if [ -z $cmd ]; then
+    echo "You need to install tmux."
+    exit 1
+fi
+
+$cmd has -t $session 2> /dev/null
+
+if [ $? != 0 ]; then
+    $cmd new -d -n base-act -s $session "base" 
+fi
+
+$cmd att -t "base"
+
+exit 0

@@ -1,0 +1,8 @@
+#!/bin/bash
+if [[ "$*" == *"-f"* ]]; then
+    /bin/ls "$@"
+elif [[ "$*" == *"-F"* ]]; then
+    /bin/ls "$@"
+else
+    /usr/local/bin/logo-ls "$@"
+fi

@@ -24,6 +24,7 @@ safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
 
 safe_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
+safe_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 
 TMUX_INSTALL="${HOME}/.tmux/install.sh"
 if [[ -x "${TMUX_INSTALL}" ]]; then
