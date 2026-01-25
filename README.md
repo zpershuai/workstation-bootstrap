@@ -68,6 +68,9 @@ mac/
 check_env.sh             # environment gate (macOS)
 00_prereq.sh
 05_fonts.sh              # install fonts from misc/
+backup_test.sh           # move managed dotfiles to backup for testing
+checkhealth.sh           # verify links and setup state
+dotfiles_only.sh         # run check_env + repos + dotfiles
 10_brew.sh
 20_npm.sh
 25_repos.sh            # clone/pull external config repos (manifest-driven)
@@ -97,6 +100,8 @@ git/gitconfig
 
 misc/
 fonts/                   # bundled fonts to install locally
+cc-switch/               # cc-switch config snapshot
+dotfiles/                # platform-agnostic scripts from ~/.dotfiles
 
 ---
 
@@ -149,6 +154,9 @@ Run pieces
 
 bash scripts/mac/check_env.sh
 bash scripts/mac/05_fonts.sh
+bash scripts/mac/backup_test.sh
+bash scripts/mac/checkhealth.sh
+bash scripts/mac/dotfiles_only.sh
 bash scripts/mac/25_repos.sh
 bash scripts/mac/30_dotfiles.sh
 
@@ -196,6 +204,7 @@ Git config
 Add a new config
 	•	IN_REPO: put file/dir under config/ and add a safe_link in scripts/mac/30_dotfiles.sh
 	•	EXTERNAL_REPO: add entry to repos/repos.lock and link from ~/.dotfiles.d/repos/<name>
+	•	MISC snapshots: place app-specific data under misc/ and link from scripts/mac/30_dotfiles.sh
 
 Secrets
 	•	Local secrets live at ~/.config/secrets/env (ignored by git)
