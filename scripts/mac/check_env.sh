@@ -7,7 +7,7 @@ MANIFEST="${ROOT_DIR}/repos/repos.lock"
 say() {
   local prefix="$1"
   shift
-  printf '%s %s\n' "${prefix}" "$*"
+  printf '%s %b\n' "${prefix}" "$*"
 }
 
 check() { say "[check]" "$*"; }
@@ -34,6 +34,7 @@ fi
 
 ssh_urls=0
 https_urls=0
+declare -a hosts
 hosts=()
 line_no=0
 
@@ -71,17 +72,20 @@ done < "${MANIFEST}"
 if [[ ${ssh_urls} -eq 1 ]]; then
   check "SSH keys"
   if ! ls "${HOME}/.ssh/id_"* >/dev/null 2>&1; then
-    error "No SSH keys found in ~/.ssh. Fix:\n  ssh-keygen -t ed25519 -C \"your_email@example.com\"\n  eval \"$(ssh-agent -s)\"\n  ssh-add --apple-use-keychain ~/.ssh/id_ed25519\n  pbcopy < ~/.ssh/id_ed25519.pub\nThen add the public key to your Git host."
+    error $'No SSH keys found in ~/.ssh. Fix:\n  ssh-keygen -t ed25519 -C "your_email@example.com"\n  eval "$(ssh-agent -s)"\n  ssh-add --apple-use-keychain ~/.ssh/id_ed25519\n  pbcopy < ~/.ssh/id_ed25519.pub\nThen add the public key to your Git host.'
   fi
 
   if ! ssh-add -l >/dev/null 2>&1; then
-    warn "ssh-agent has no keys loaded. Fix:\n  eval \"$(ssh-agent -s)\"\n  ssh-add --apple-use-keychain ~/.ssh/id_ed25519"
+    warn $'ssh-agent has no keys loaded. Fix:\n  eval "$(ssh-agent -s)"\n  ssh-add --apple-use-keychain ~/.ssh/id_ed25519'
   fi
 
   check "SSH connectivity"
-  uniq_hosts=()
+  declare -a uniq_hosts=()
+  if [[ ${#hosts[@]} -eq 0 ]]; then
+    warn "No SSH hosts parsed from repos.lock despite SSH URLs."
+  fi
   for h in "${hosts[@]}"; do
-    if [[ " ${uniq_hosts[*]} " != *" ${h} "* ]]; then
+    if [[ " ${uniq_hosts[*]-} " != *" ${h} "* ]]; then
       uniq_hosts+=("${h}")
     fi
   done
