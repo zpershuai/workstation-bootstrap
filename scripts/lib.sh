@@ -3,9 +3,14 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BACKUP_DIR="${HOME}/.dotfiles_backup/$(date +%Y%m%d-%H%M%S)"
+DRY_RUN="${DRY_RUN:-0}"
 
 log() {
   printf '[dotfiles] %s\n' "$*"
+}
+
+is_dry_run() {
+  [[ "${DRY_RUN}" == "1" ]]
 }
 
 need_cmd() {
@@ -32,12 +37,23 @@ run_module() {
 
 ensure_dir() {
   local dir="$1"
-  [[ -d "${dir}" ]] || mkdir -p "${dir}"
+  if [[ -d "${dir}" ]]; then
+    return 0
+  fi
+  if is_dry_run; then
+    log "DRY_RUN: would create dir ${dir}"
+    return 0
+  fi
+  mkdir -p "${dir}"
 }
 
 backup_path() {
   local path="$1"
   if [[ -e "${path}" || -L "${path}" ]]; then
+    if is_dry_run; then
+      log "DRY_RUN: would backup ${path} -> ${BACKUP_DIR}/"
+      return 0
+    fi
     ensure_dir "${BACKUP_DIR}"
     mv "${path}" "${BACKUP_DIR}/"
   fi
@@ -54,6 +70,11 @@ safe_link() {
 
   if [[ -L "${dest}" && "$(readlink "${dest}")" == "${src}" ]]; then
     log "Link already correct: ${dest}"
+    return 0
+  fi
+
+  if is_dry_run; then
+    log "DRY_RUN: would link ${dest} -> ${src}"
     return 0
   fi
 

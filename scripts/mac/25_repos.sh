@@ -21,7 +21,24 @@ while read -r name url dest ref; do
   fi
 
   dest="${dest/#\~/$HOME}"
-  ensure_dir "$(dirname "${dest}")"
+  if is_dry_run; then
+    log "DRY_RUN: would ensure dir $(dirname "${dest}")"
+  else
+    ensure_dir "$(dirname "${dest}")"
+  fi
+
+  if is_dry_run; then
+    log "DRY_RUN: would check access to ${url}"
+    if ! git ls-remote --heads "${url}" >/dev/null 2>&1; then
+      die "DRY_RUN access check failed for ${name} (${url}). Check SSH/HTTPS auth and network."
+    fi
+    if [[ -d "${dest}/.git" ]]; then
+      log "DRY_RUN: would fetch/checkout/pull in ${dest}"
+    else
+      log "DRY_RUN: would clone ${name} -> ${dest}"
+    fi
+    continue
+  fi
 
   if [[ ! -d "${dest}/.git" ]]; then
     log "Cloning ${name} -> ${dest}"
