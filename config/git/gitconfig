@@ -3,3 +3,6 @@
 [include]
   path = ~/.config/git/.gitconfig.base
   path = ~/.gitconfig.local
+[user]
+	email = zpershuai@gmail.com
+	name = zpershuai
