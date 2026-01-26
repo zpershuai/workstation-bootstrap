@@ -10,6 +10,7 @@ safe_link "${ROOT_DIR}/config/zsh/zprofile" "${HOME}/.zprofile"
 safe_link "${ROOT_DIR}/config/shell/profile" "${HOME}/.profile"
 safe_link "${ROOT_DIR}/config/tmux/tmux.conf" "${HOME}/.tmux.conf"
 safe_link "${ROOT_DIR}/config/git/gitconfig" "${HOME}/.gitconfig"
+safe_link "${ROOT_DIR}/config/git/gitignore_global" "${HOME}/.gitignore_global"
 
 ensure_dir "${HOME}/.config/git"
 safe_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitconfig.base"

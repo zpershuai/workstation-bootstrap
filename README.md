@@ -96,6 +96,7 @@ config/
 zsh/zprofile
 tmux/tmux.conf
 git/gitconfig
+git/gitignore_global
 …etc
 
 misc/
@@ -200,6 +201,7 @@ Zsh layout
 Git config
 	•	~/.gitconfig includes ~/.config/git/.gitconfig.base and ~/.gitconfig.local
 	•	Keep identity in ~/.gitconfig.local (not in repo)
+	•	Repo dotfiles are non-hidden (no leading dot); setup links them to hidden paths in $HOME
 
 Add a new config
 	•	IN_REPO: put file/dir under config/ and add a safe_link in scripts/mac/30_dotfiles.sh

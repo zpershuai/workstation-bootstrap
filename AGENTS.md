@@ -26,7 +26,7 @@ If you add new commands, document them in `README.md` and here.
 - Shell scripts should be `bash` or `zsh` and include a shebang.
 - Indentation: 2 spaces; avoid tabs.
 - Script names: `NN_topic.sh` to preserve execution order.
-- Config files should match their target names (e.g., `config/zsh/.zshrc`).
+- Repo dotfiles should be non-hidden (no leading dot) and linked to hidden targets in `$HOME` (e.g., `config/zsh/zshrc` -> `~/.zshrc`).
 - No formatter is enforced; keep scripts readable and defensive.
 
 ## Testing Guidelines

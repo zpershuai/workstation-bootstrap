@@ -1,8 +1,42 @@
-# Main Git config (symlinked to ~/.gitconfig).
-
-[include]
-  path = ~/.config/git/.gitconfig.base
-  path = ~/.gitconfig.local
+[color]
+	ui = true
+[core]
+	pager = bat
+	excludesfile = ~/.gitignore_global
+	autocrlf = false
+	whitespace = cr-at-eol
+	editor = vim
+	symlinks = false
 [user]
+	name = tent zp
 	email = zpershuai@gmail.com
-	name = zpershuai
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+    required = true
+
+
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = zpershuai@gmail.com
+	smtpserverport = 587
+	confirm = auto
+	smtppass = yzqfuzonnkcwoybu
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+[oh-my-zsh]
+	hide-status = 1
+	hide-dirty = 1
+[https]
+    postBuffer = 2097152000
+
+[includeIf "gitdir:~/Code/ali/"]
+    path = ~/.gitconfig-ali
+[safe]
+	directory = ~/Code/qemu/vde_vmnet
