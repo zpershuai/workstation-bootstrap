@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+data_dir="${HOME}/Log/$(date "+%Y_%m_%d")"
+
+echo "${data_dir}"
+if [[ ! -d "${data_dir}" ]]; then
+  mkdir -p "${data_dir}"
+fi
+cd "${data_dir}" || exit 1

@@ -26,6 +26,12 @@ fi
 # dotfiles bin
 export PATH="${HOME}/.dotfiles/bin:${PATH}"
 
+# auto delete old files on login shells
+auto_delete_bin="${HOME}/.dotfiles/bin/auto_delete.sh"
+if [[ -x "${auto_delete_bin}" ]]; then
+  "${auto_delete_bin}" --quiet
+fi
+
 # tmux: auto-attach when using SSH
 if [[ -z "${TMUX:-}" && -n "${SSH_CONNECTION:-}" ]]; then
   "${HOME}/.dotfiles/bin/tmwork"
