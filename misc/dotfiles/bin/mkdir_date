@@ -1,9 +1,21 @@
 #!/bin/zsh
 
+is_sourced=0
+if [[ -n "${ZSH_VERSION:-}" ]]; then
+  case "${ZSH_EVAL_CONTEXT:-}" in
+    *:file) is_sourced=1 ;;
+  esac
+fi
+
 data_dir="${HOME}/Log/$(date "+%Y_%m_%d")"
 
 echo "${data_dir}"
 if [[ ! -d "${data_dir}" ]]; then
   mkdir -p "${data_dir}"
 fi
-cd "${data_dir}" || exit 1
+if [[ "${is_sourced}" -eq 1 ]]; then
+  cd "${data_dir}" || return 1
+else
+  cd "${data_dir}" || exit 1
+  echo "Tip: source this script (or use the mkdir_date function) to stay in the directory."
+fi

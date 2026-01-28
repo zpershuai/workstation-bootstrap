@@ -46,6 +46,17 @@ alias tmkill="tmux kill-session -t"
 alias vim="nvim"
 alias ls="${HOME}/.dotfiles/bin/ls"
 
+mkdir_date() {
+  local script="${HOME}/.dotfiles/bin/mkdir_date"
+  if [[ -r "${script}" ]]; then
+    source "${script}"
+  else
+    local data_dir="${HOME}/Log/$(date "+%Y_%m_%d")"
+    mkdir -p "${data_dir}" || return 1
+    cd "${data_dir}" || return 1
+  fi
+}
+
 export VISUAL="nvim"
 export EDITOR="nvim"
 export LESSCHARSET="utf-8"
