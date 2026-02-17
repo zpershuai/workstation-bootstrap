@@ -33,6 +33,7 @@ expect_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
 expect_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 expect_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
 
+expect_link "${ROOT_DIR}/config/zsh/zshrc" "${HOME}/.zshrc"
 expect_link "${ROOT_DIR}/config/zsh/zprofile" "${HOME}/.zprofile"
 expect_link "${ROOT_DIR}/config/shell/profile" "${HOME}/.profile"
 expect_link "${ROOT_DIR}/config/tmux/tmux.conf" "${HOME}/.tmux.conf"
@@ -42,15 +43,6 @@ expect_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitcon
 log "Checking oh-my-zsh"
 if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
   warn "Missing ~/.oh-my-zsh"
-fi
-if [[ -f "${HOME}/.zshrc" ]]; then
-  if grep -Eq '(^|[[:space:]])(source|\\.)[[:space:]]+~/.zprofile' "${HOME}/.zshrc"; then
-    log "OK: ~/.zshrc sources ~/.zprofile"
-  else
-    warn "~/.zshrc does not source ~/.zprofile"
-  fi
-else
-  warn "Missing ~/.zshrc"
 fi
 
 log "Checking fonts"

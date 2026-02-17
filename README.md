@@ -93,6 +93,7 @@ repos/
 repos.lock               # external git repos manifest (url + dest + ref)
 
 config/
+zsh/zshrc
 zsh/zprofile
 tmux/tmux.conf
 git/gitconfig
@@ -195,8 +196,9 @@ Design principles
 	•	External repos: git-backed configs are cloned into ~/.dotfiles.d/repos and linked
 
 Zsh layout
-	•	~/.zshrc: created by oh-my-zsh, ends with source ~/.zprofile
-	•	~/.zprofile: main config, secrets loader, PATH, and tool init
+	•	~/.zshrc: symlink to config/zsh/zshrc (managed by this repo)
+	•	~/.zprofile: symlink to config/zsh/zprofile (login-shell config)
+	•	oh-my-zsh installer runs with KEEP_ZSHRC=yes, so setup does not edit ~/.zshrc directly
 
 Git config
 	•	~/.gitconfig includes ~/.config/git/.gitconfig.base and ~/.gitconfig.local

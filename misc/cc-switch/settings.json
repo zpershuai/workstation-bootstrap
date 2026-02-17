@@ -4,13 +4,14 @@
   "enableClaudePluginIntegration": false,
   "skipClaudeOnboarding": true,
   "launchOnStartup": true,
+  "silentStartup": false,
   "language": "zh",
   "visibleApps": {
     "claude": true,
-    "codex": false,
+    "codex": true,
     "gemini": false,
-    "opencode": true
+    "opencode": false
   },
-  "currentProviderClaude": "602d345e-8083-41ad-9a86-d5674f38c17e",
+  "currentProviderClaude": "73870cf5-a767-4167-80ca-c1ad9991d6fc",
   "skillSyncMethod": "auto"
 }

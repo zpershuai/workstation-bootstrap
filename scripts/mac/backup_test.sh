@@ -12,6 +12,7 @@ log "Backup dir: ${BACKUP_DIR}"
 mkdir -p "${BACKUP_DIR}"
 
 paths=(
+  "${HOME}/.zshrc"
   "${HOME}/.zprofile"
   "${HOME}/.profile"
   "${HOME}/.tmux.conf"

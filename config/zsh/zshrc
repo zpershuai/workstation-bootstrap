@@ -1,0 +1,26 @@
+# Interactive zsh config (managed by workstation-bootstrap).
+
+# OpenSpec shell completions configuration
+fpath=("${HOME}/.oh-my-zsh/custom/completions" $fpath)
+
+export ZSH="${HOME}/.oh-my-zsh"
+DISABLE_AUTO_UPDATE="true"
+ZSH_THEME="ys"
+
+plugins=(
+  autojump
+  macos
+  adb
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+if [[ -f "${ZSH}/oh-my-zsh.sh" ]]; then
+  source "${ZSH}/oh-my-zsh.sh"
+fi
+
+# Keep login-shell logic in ~/.zprofile.
+# Login shell will load ~/.zprofile automatically, so only source it in non-login shells.
+if [[ ! -o login && -f "${HOME}/.zprofile" ]]; then
+  source "${HOME}/.zprofile"
+fi
