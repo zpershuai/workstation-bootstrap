@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# SSH server connection script
+# Connects to zpershuai.vps or zpershuai.top based on local network detection
+
+set -euo pipefail
+
+# Resolve the hostname to IP
+VPS_IP=$(getent hosts zpershuai.vps 2>/dev/null | awk '{print $1}' || true)
+
+if [[ "$VPS_IP" == "192.168.1.3" ]]; then
+  echo "Detected local network (192.168.1.3), connecting via local port..."
+  ssh -p 10022 zpershuai@zpershuai.vps
+else
+  echo "Remote network detected, connecting via external endpoint..."
+  ssh -p 18022 zpershuai@zpershuai.top
+fi

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(plutil -p:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "Bash(bash /Users/perry/Code/Tools/workstation-bootstrap/scripts/mac/30_dotfiles.sh)",
+      "Bash(fc-scan:*)",
+      "Bash(fc-query:*)",
+      "Bash(ghostty +list-fonts:*)",
+      "Bash(fc-list:*)",
+      "Bash(mdls:*)",
+      "WebFetch(domain:ghostty.org)",
+      "Bash(git -C:*)"
+    ]
+  }
+}
