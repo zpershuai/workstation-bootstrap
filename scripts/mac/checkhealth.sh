@@ -32,6 +32,7 @@ expect_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 expect_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
 expect_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 expect_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
+expect_link "${ROOT_DIR}/config/ghostty" "${HOME}/.config/ghostty"
 
 expect_link "${ROOT_DIR}/config/zsh/zshrc" "${HOME}/.zshrc"
 expect_link "${ROOT_DIR}/config/zsh/zprofile" "${HOME}/.zprofile"

@@ -1,0 +1,101 @@
+# Ghostty configuration
+# Converted from iTerm2 settings
+
+# =============================================================================
+# Font Configuration
+# =============================================================================
+font-family = "SauceCodeProNerdFontCompleteNerdFont Nerd Font"
+font-size = 16
+font-style = "Regular"
+bold-is-bright = true
+
+# =============================================================================
+# Color Scheme (from iTerm2)
+# =============================================================================
+background = 000000
+foreground = BBBBBB
+cursor-color = FFA362
+selection-background = 444444
+selection-foreground = BBBBBB
+
+# ANSI Colors (from iTerm2 profile)
+palette = 0=#4F4F4F
+palette = 1=#FF6C6B
+palette = 2=#A8FF60
+palette = 3=#FFFFB6
+palette = 4=#96CBFE
+palette = 5=#FF73FD
+palette = 6=#C6C5FE
+palette = 7=#EEEEEE
+palette = 8=#7C7C7C
+palette = 9=#FFB6B6
+palette = 10=#CEFFAB
+palette = 11=#FFFFCB
+palette = 12=#B5DCFE
+palette = 13=#FF9CFE
+palette = 14=#DFDFFE
+palette = 15=#FFFFFF
+
+# =============================================================================
+# Window & Display
+# =============================================================================
+# Initial window size (matching iTerm2 80x25)
+initial-window = true
+window-width = 80
+window-height = 25
+
+# macOS window style
+# "tabs" = 标签页集成到标题栏（节省一排空间）
+# "hidden" = 完全隐藏标题栏（保留标签页在下方）
+# "transparent" = 透明标题栏（标题栏和标签页分开两排）
+macos-titlebar-style = tabs
+window-decoration = true
+
+# 显示关闭/最小化/最大化按钮（交通灯）
+macos-window-buttons = visible
+
+window-padding-x = 2
+window-padding-y = 2
+window-padding-balance = true
+
+# Background (iTerm2 had no transparency/blur)
+background-opacity = 1.0
+background-blur = false
+
+# =============================================================================
+# Terminal Behavior
+# =============================================================================
+# Scrollback (iTerm2 had 1000 lines, unlimited = false)
+scrollback-limit = 100000
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# =============================================================================
+# Shell Integration
+# =============================================================================
+# Use login shell (matching iTerm2 behavior)
+shell-integration = detect
+
+# =============================================================================
+# Keybindings
+# =============================================================================
+# Note: Standard macOS shortcuts (cmd+c, cmd+v, cmd+plus, etc.) are enabled by default
+
+# =============================================================================
+# Advanced
+# =============================================================================
+# Enable GPU acceleration
+gtk-single-instance = false
+
+# Quit when last window is closed
+quit-after-last-window-closed = true
+
+# Auto-update check
+auto-update = check
