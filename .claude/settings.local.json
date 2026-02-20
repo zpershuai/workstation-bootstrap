@@ -11,7 +11,8 @@
       "Bash(fc-list:*)",
       "Bash(mdls:*)",
       "WebFetch(domain:ghostty.org)",
-      "Bash(git -C:*)"
+      "Bash(git -C:*)",
+      "Bash(chmod:*)"
     ]
   }
 }
