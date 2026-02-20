@@ -36,7 +36,7 @@ expect_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
 expect_link "${ROOT_DIR}/config/zsh/zshrc" "${HOME}/.zshrc"
 expect_link "${ROOT_DIR}/config/zsh/zprofile" "${HOME}/.zprofile"
 expect_link "${ROOT_DIR}/config/shell/profile" "${HOME}/.profile"
-expect_link "${ROOT_DIR}/config/tmux/tmux.conf" "${HOME}/.tmux.conf"
+expect_link "${HOME}/.tmux/.tmux.conf" "${HOME}/.tmux.conf"
 expect_link "${ROOT_DIR}/config/git/gitconfig" "${HOME}/.gitconfig"
 expect_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitconfig.base"
 
