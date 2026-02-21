@@ -64,6 +64,9 @@ background-blur = false
 # =============================================================================
 # Terminal Behavior
 # =============================================================================
+# Use standard TERM for SSH compatibility (avoids "missing or unsuitable terminal: xterm-ghostty")
+term = xterm-256color
+
 # Scrollback (iTerm2 had 1000 lines, unlimited = false)
 scrollback-limit = 100000
 
