@@ -27,7 +27,6 @@ This document inventories dotfiles and config directories found in the current h
 ## XDG config directory
 
 - `~/.config/fish/`: fish shell configuration.
-- `~/.config/iterm2/`: iTerm2 preferences and profiles.
 - `~/.config/karabiner/`: Karabiner-Elements rules and profiles.
 - `~/.config/nvim/`: Neovim configuration.
 - `~/.config/uv/`: uv (Python tool) settings.

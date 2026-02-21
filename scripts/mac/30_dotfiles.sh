@@ -18,7 +18,6 @@ safe_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitconfi
 
 ensure_dir "${HOME}/.config"
 safe_link "${ROOT_DIR}/config/fish" "${HOME}/.config/fish"
-safe_link "${ROOT_DIR}/config/iterm2" "${HOME}/.config/iterm2"
 safe_link "${ROOT_DIR}/config/ghostty" "${HOME}/.config/ghostty"
 safe_link "${ROOT_DIR}/config/karabiner" "${HOME}/.config/karabiner"
 safe_link "${ROOT_DIR}/config/uv" "${HOME}/.config/uv"

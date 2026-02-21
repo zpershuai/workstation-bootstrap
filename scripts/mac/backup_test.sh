@@ -19,7 +19,6 @@ paths=(
   "${HOME}/.gitconfig"
   "${HOME}/.config/git/.gitconfig.base"
   "${HOME}/.config/fish"
-  "${HOME}/.config/iterm2"
   "${HOME}/.config/ghostty"
   "${HOME}/.config/karabiner"
   "${HOME}/.config/uv"
