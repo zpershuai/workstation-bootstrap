@@ -70,6 +70,9 @@ if [[ -f "${HOME}/.mtl-cli/bin/mtl-activate" ]]; then
   source "${HOME}/.mtl-cli/bin/mtl-activate"
 fi
 
+# Homebrew node (fallback if NVM not installed)
+export PATH="/opt/homebrew/opt/node/bin:${PATH}"
+
 # NVM: lazy load on first use to reduce shell startup time.
 export NVM_DIR="${HOME}/.nvm"
 _lazy_load_nvm() {
@@ -82,7 +85,7 @@ _lazy_load_nvm() {
   fi
 }
 for __nvm_cmd in nvm node npm npx corepack yarn pnpm; do
-  eval "${__nvm_cmd}() { _lazy_load_nvm; ${__nvm_cmd} \"\$@\"; }"
+  eval "${__nvm_cmd}() { _lazy_load_nvm; command ${__nvm_cmd} \"\$@\"; }"
 done
 unset __nvm_cmd
 

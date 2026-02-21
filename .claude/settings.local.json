@@ -12,7 +12,9 @@
       "Bash(mdls:*)",
       "WebFetch(domain:ghostty.org)",
       "Bash(git -C:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(echo:*)",
+      "Bash(sqlite3:*)"
     ]
   }
 }
