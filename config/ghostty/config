@@ -99,5 +99,8 @@ gtk-single-instance = false
 # Quit when last window is closed
 quit-after-last-window-closed = true
 
+# Disable close confirmation prompt (directly close tabs/windows without warning)
+confirm-close-surface = false
+
 # Auto-update check
 auto-update = check
