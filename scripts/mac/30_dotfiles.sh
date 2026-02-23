@@ -37,3 +37,12 @@ if [[ -x "${TMUX_INSTALL}" ]]; then
     bash "${TMUX_INSTALL}"
   fi
 fi
+
+# Oh My Zsh third-party plugins
+ensure_dir "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+
+safe_link "${HOME}/.dotfiles.d/repos/zsh-syntax-highlighting" \
+  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+
+safe_link "${HOME}/.dotfiles.d/repos/zsh-navigation-tools" \
+  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-navigation-tools"
