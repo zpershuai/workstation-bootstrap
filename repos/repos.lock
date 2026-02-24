@@ -4,6 +4,9 @@
 nvim  git@github.com:zpershuai/nvim.git  ~/.dotfiles.d/repos/nvim  main
 tmux  git@github.com:zpershuai/tmux.git  ~/.dotfiles.d/repos/tmux  main
 
+# Tmux Plugin Manager
+tpm  https://github.com/tmux-plugins/tpm.git  ~/.dotfiles.d/repos/tpm  master
+
 # Oh My Zsh third-party plugins
 zsh-syntax-highlighting  git@github.com:zsh-users/zsh-syntax-highlighting.git  ~/.dotfiles.d/repos/zsh-syntax-highlighting  master
 zsh-navigation-tools     git@github.com:psprint/zsh-navigation-tools.git      ~/.dotfiles.d/repos/zsh-navigation-tools      master

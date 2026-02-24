@@ -25,6 +25,10 @@ safe_link "${ROOT_DIR}/config/uv" "${HOME}/.config/uv"
 safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
 
+# TPM (Tmux Plugin Manager)
+ensure_dir "${HOME}/.tmux/plugins"
+safe_link "${HOME}/.dotfiles.d/repos/tpm" "${HOME}/.tmux/plugins/tpm"
+
 safe_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
 safe_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 
