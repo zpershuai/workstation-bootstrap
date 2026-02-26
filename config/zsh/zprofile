@@ -58,6 +58,9 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export LESSCHARSET="utf-8"
 
+# XDG Base Directory (for lazygit and other tools to use ~/.config)
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 alias git='LANG=en_GB git'
 # Add user-local bin paths.
 export PATH="${HOME}/.local/bin:${PATH}"

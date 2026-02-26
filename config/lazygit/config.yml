@@ -1,0 +1,58 @@
+gui:
+  # 官方仅支持 auto|always；auto 表示仅在同一文件同时存在 staged/unstaged 时才分屏
+  splitDiff: auto
+  # 分屏时使用左右布局，避免上下分割影响阅读
+  mainPanelSplitMode: vertical
+
+  # 启用 Nerd Fonts 图标（需要安装 Nerd Fonts）
+  nerdFontsVersion: "3"
+  showFileIcons: true
+  # 聚焦面板自动展开
+  expandFocusedSidePanel: true
+  # 模糊搜索更高效
+  filterMode: fuzzy
+  # 文件树视图
+  showFileTree: true
+  # 暂存区默认启用 hunk 模式
+  useHunkModeInStagingView: true
+  # Tab 宽度
+  tabWidth: 2
+  # 允许滚动到底部以下
+  scrollPastBottom: true
+
+git:
+  # 自动 fetch
+  autoFetch: true
+  # fetch 所有远程
+  fetchAll: true
+  # 自动快进主分支
+  autoForwardBranches: onlyMainBranches
+  # 自动暂存已解决的冲突
+  autoStageResolvedConflicts: true
+  # 提交信息自动换行
+  commit:
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+  # 日志使用拓扑排序
+  log:
+    order: topo-order
+    showGraph: always
+  # 合并后不挂起（Unix 用户）
+  merging:
+    manualCommit: false
+
+os:
+  # 编辑器预设
+  editPreset: nvim
+
+# 退出不确认
+confirmOnQuit: false
+# 禁用启动弹窗
+disableStartupPopups: true
+# 顶层按 ESC 退出
+quitOnTopLevelReturn: true
+
+keybinding:
+  universal:
+    scrollUpMain-alt2: <c-u>
+    scrollDownMain-alt2: <c-d>

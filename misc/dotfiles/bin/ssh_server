@@ -13,5 +13,5 @@ if [[ "$VPS_IP" == "192.168.1.3" ]]; then
   TERM=xterm-256color ssh -p 10022 zpershuai@zpershuai.vps
 else
   echo "Remote network detected, connecting via external endpoint..."
-  TERM=xterm-256color ssh -p 18022 zpershuai@zpershuai.top
+  TERM=xterm-256color ssh -p 19022 zpershuai@zpershuai.top
 fi
