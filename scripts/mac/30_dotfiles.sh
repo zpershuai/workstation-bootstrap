@@ -18,10 +18,12 @@ safe_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitconfi
 
 ensure_dir "${HOME}/.config"
 safe_link "${ROOT_DIR}/config/fish" "${HOME}/.config/fish"
+safe_link "${ROOT_DIR}/config/fzf" "${HOME}/.config/fzf"
 safe_link "${ROOT_DIR}/config/ghostty" "${HOME}/.config/ghostty"
 safe_link "${ROOT_DIR}/config/karabiner" "${HOME}/.config/karabiner"
 safe_link "${ROOT_DIR}/config/uv" "${HOME}/.config/uv"
 safe_link "${ROOT_DIR}/config/lazygit" "${HOME}/.config/lazygit"
+safe_link "${ROOT_DIR}/config/yazi" "${HOME}/.config/yazi"
 
 safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"

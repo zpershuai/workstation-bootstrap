@@ -1,0 +1,43 @@
+# Yazi main config (managed by workstation-bootstrap).
+
+[mgr]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_hidden = true
+show_symlink = true
+scrolloff = 6
+mouse_events = ["click", "scroll"]
+ratio = [1, 3, 4]
+
+[preview]
+tab_size = 2
+max_width = 1600
+max_height = 1600
+
+[opener]
+edit = [
+  { run = '${EDITOR:-nvim} "$@"', block = true, desc = "$EDITOR", for = "unix" },
+]
+open = [
+  { run = 'open "$@"', desc = "Open", for = "macos" },
+]
+
+[open]
+prepend_rules = [
+  { name = "*.md", use = "edit" },
+  { name = "*.txt", use = "edit" },
+  { name = "*.json", use = "edit" },
+  { name = "*.yaml", use = "edit" },
+  { name = "*.yml", use = "edit" },
+  { name = "*.toml", use = "edit" },
+  { name = "*.lua", use = "edit" },
+  { name = "*.sh", use = "edit" },
+  { name = "*.zsh", use = "edit" },
+  { name = "*.py", use = "edit" },
+  { name = "*.js", use = "edit" },
+  { name = "*.ts", use = "edit" },
+  { name = "*.tsx", use = "edit" },
+  { mime = "text/*", use = "edit" },
+]

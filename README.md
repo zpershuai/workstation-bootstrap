@@ -46,6 +46,7 @@ Setup is split into modules:
    Copy fonts from `misc/fonts/` into `~/Library/Fonts`.
 4. **Install software**  
    - `brew bundle` from `brew/Brewfile`
+   - Includes `yazi` and common preview/search dependencies (`chafa`, `sevenzip`, `fzf`, `zoxide`, `jq`)
    - `npm install -g` from `npm/packages.txt`
 5. **External config repos**  
    Manifest-driven clone/pull from `repos/repos.lock`.
@@ -98,6 +99,8 @@ zsh/zprofile
 tmux/tmux.conf
 git/gitconfig
 git/gitignore_global
+yazi/yazi.toml
+yazi/keymap.toml
 …etc
 
 misc/
@@ -204,6 +207,11 @@ Git config
 	•	~/.gitconfig includes ~/.config/git/.gitconfig.base and ~/.gitconfig.local
 	•	Keep identity in ~/.gitconfig.local (not in repo)
 	•	Repo dotfiles are non-hidden (no leading dot); setup links them to hidden paths in $HOME
+
+Yazi config
+	•	~/.config/yazi -> config/yazi (managed by this repo)
+	•	Default behavior is tuned for coding workflows: show hidden files, natural sort, larger preview pane
+	•	Text/code files open in `$EDITOR` (default `nvim`)
 
 Add a new config
 	•	IN_REPO: put file/dir under config/ and add a safe_link in scripts/mac/30_dotfiles.sh

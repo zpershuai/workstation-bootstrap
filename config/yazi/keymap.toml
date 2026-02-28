@@ -1,0 +1,11 @@
+# Yazi keymap config (managed by workstation-bootstrap).
+
+[mgr]
+prepend_keymap = [
+  { on = "<A-h>", run = "leave", desc = "Leave parent directory" },
+  { on = "<A-l>", run = "enter", desc = "Enter child directory" },
+  { on = ["z", "f"], run = "plugin fzf", desc = "Jump with fzf" },
+  { on = ["z", "z"], run = "plugin zoxide", desc = "Jump with zoxide" },
+  { on = ["g", "d"], run = "cd ~/Code", desc = "Go to ~/Code" },
+  { on = ["g", "."], run = "cd ~/.config", desc = "Go to ~/.config" },
+]
