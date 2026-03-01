@@ -27,6 +27,7 @@ safe_link "${ROOT_DIR}/config/yazi" "${HOME}/.config/yazi"
 
 safe_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 safe_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
+safe_link "${HOME}/.dotfiles.d/repos/claudecode_dotfiles" "${HOME}/.claude"
 
 # TPM (Tmux Plugin Manager)
 ensure_dir "${HOME}/.tmux/plugins"

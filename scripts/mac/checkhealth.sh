@@ -30,6 +30,7 @@ expect_link() {
 log "Checking dotfile links"
 expect_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 expect_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
+expect_link "${HOME}/.dotfiles.d/repos/claudecode_dotfiles" "${HOME}/.claude"
 expect_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 expect_link "${ROOT_DIR}/misc/cc-switch" "${HOME}/.cc-switch"
 expect_link "${ROOT_DIR}/config/fzf" "${HOME}/.config/fzf"
@@ -56,7 +57,7 @@ else
 fi
 
 log "Checking external repos"
-for repo in nvim tmux; do
+for repo in nvim tmux claudecode_dotfiles; do
   if [[ -d "${HOME}/.dotfiles.d/repos/${repo}/.git" ]]; then
     log "OK: repo ${repo} present"
   else

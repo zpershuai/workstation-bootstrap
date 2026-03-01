@@ -127,5 +127,3 @@ export PATH="${BUN_INSTALL}/bin:${PATH}"
 if [[ -f "${HOME}/.local/bin/env" ]]; then
   . "${HOME}/.local/bin/env"
 fi
-
-alias claude-mem='${HOME}/.bun/bin/bun "${HOME}/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'

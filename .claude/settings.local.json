@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ping:*)",
+      "Bash(nslookup:*)",
+      "Bash(getent hosts:*)",
+      "Bash(~/.ssh/config:*)"
+    ]
+  }
+}
