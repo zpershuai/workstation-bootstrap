@@ -36,3 +36,6 @@ config/**/.local
 *.tmp
 *.bak
 *.log
+
+# cc-switch local databases (device-specific)
+misc/cc-switch/*.db
