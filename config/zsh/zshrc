@@ -42,3 +42,4 @@ fi
 if [[ ! -o login && -f "${HOME}/.zprofile" ]]; then
   source "${HOME}/.zprofile"
 fi
+export DISABLE_AUTOUPDATER=1
