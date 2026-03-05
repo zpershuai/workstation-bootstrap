@@ -24,7 +24,6 @@ paths=(
   "${HOME}/.config/uv"
   "${HOME}/.config/nvim"
   "${HOME}/.tmux"
-  "${HOME}/.cc-switch"
   "${HOME}/.dotfiles"
 )
 

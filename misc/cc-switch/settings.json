@@ -5,13 +5,15 @@
   "skipClaudeOnboarding": true,
   "launchOnStartup": true,
   "silentStartup": false,
+  "enableLocalProxy": true,
   "language": "zh",
   "visibleApps": {
     "claude": true,
     "codex": true,
     "gemini": false,
-    "opencode": false
+    "opencode": false,
+    "openclaw": true
   },
-  "currentProviderClaude": "bffc43c9-6c1e-4605-bd26-eac841714fef",
-  "skillSyncMethod": "auto"
+  "skillSyncMethod": "auto",
+  "preferredTerminal": "ghostty"
 }

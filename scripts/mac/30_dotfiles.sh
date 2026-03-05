@@ -33,17 +33,6 @@ safe_link "${HOME}/.dotfiles.d/repos/claudecode_dotfiles" "${HOME}/.claude"
 ensure_dir "${HOME}/.tmux/plugins"
 safe_link "${HOME}/.dotfiles.d/repos/tpm" "${HOME}/.tmux/plugins/tpm"
 
-# cc-switch: link configs but keep database local (device-specific)
-ensure_dir "${HOME}/.cc-switch"
-ensure_dir "${HOME}/.cc-switch/logs"
-ensure_dir "${HOME}/.cc-switch/skills"
-safe_link "${ROOT_DIR}/misc/cc-switch/settings.json" "${HOME}/.cc-switch/settings.json"
-# Database is local only - initialize if missing
-if [[ ! -f "${HOME}/.cc-switch/cc-switch.db" ]]; then
-  log "Initializing empty cc-switch database"
-  touch "${HOME}/.cc-switch/cc-switch.db"
-fi
-
 safe_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
 
 TMUX_INSTALL="${HOME}/.tmux/install.sh"

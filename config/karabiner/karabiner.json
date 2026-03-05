@@ -34,7 +34,7 @@
                     "ignore": false
                 }
             ],
-            "name": "Default profile",
+            "name": "Winner",
             "selected": true,
             "simple_modifications": [
                 {
@@ -46,6 +46,10 @@
                     "to": [{ "key_code": "caps_lock" }]
                 }
             ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        },
+        {
+            "name": "loser",
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
