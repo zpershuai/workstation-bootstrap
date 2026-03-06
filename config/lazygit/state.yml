@@ -1,8 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/tentzp/Code/tools/workstation-bootstrap
-- /Users/tentzp/Code/ali/it-xiaoge-desktop
+    - /Users/perry/Code/ali/it-xiaoge-desktop
 startuppopupversion: 0
+didshowhunkstaginghint: false
+lastversion: 0.59.0
 customcommandshistory: []
 hidecommandlog: false
-ignorewhitespaceindiffview: false
