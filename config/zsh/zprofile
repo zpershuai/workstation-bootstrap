@@ -129,4 +129,5 @@ if [[ -f "${HOME}/.local/bin/env" ]]; then
 fi
 
 export CLAUDE_CODE_AUTO_UPDATER_DISABLED=1
+export DISABLE_AUTOUPDATER=1
 

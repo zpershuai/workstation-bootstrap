@@ -47,7 +47,7 @@ window-height = 25
 # "tabs" = 标签页集成到标题栏（节省一排空间）
 # "hidden" = 完全隐藏标题栏（保留标签页在下方）
 # "transparent" = 透明标题栏（标题栏和标签页分开两排）
-macos-titlebar-style = tabs
+macos-titlebar-style = transparent
 window-decoration = true
 
 # 显示关闭/最小化/最大化按钮（交通灯）
