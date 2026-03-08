@@ -39,3 +39,4 @@ config/**/.local
 
 # cc-switch local databases (device-specific)
 misc/cc-switch/*.db
+config/lazygit/state.yml
