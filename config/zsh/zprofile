@@ -47,6 +47,7 @@ alias tmnew="tmux new-session -s"
 alias tmkill="tmux kill-session -t"
 alias vim="nvim"
 alias ls="${HOME}/.dotfiles/bin/ls"
+alias rm="trash"
 
 mkdir_date() {
   local script="${HOME}/.dotfiles/bin/mkdir_date"
@@ -85,6 +86,43 @@ y() {
     builtin cd -- "${cwd}" || return 1
   fi
   rm -f -- "${tmp}"
+}
+
+# aiwork: create tmux session/window with codex, claude, and lazygit
+aiwork() {
+  local parent child name pane_count
+  parent="$(basename "$(dirname "$PWD")" | tr '. ' '__')"
+  child="$(basename "$PWD" | tr '. ' '__')"
+  name="${parent}-${child}"
+
+  # Prevent nested panels: if already in tmux and current window has multiple panes, abort
+  if [[ -n "$TMUX" ]]; then
+    pane_count=$(tmux list-panes | wc -l)
+    if [[ "$pane_count" -gt 1 ]]; then
+      echo "Error: aiwork cannot run in a window with multiple panes (preventing nested panels)" >&2
+      return 1
+    fi
+  fi
+
+  if [[ -n "$TMUX" ]]; then
+    tmux new-window -n "$name" -c "$PWD" \; \
+      split-window -h -c "$PWD" \; \
+      split-window -v -t 0 -c "$PWD" \; \
+      send-keys -t 0 'codex' C-m \; \
+      send-keys -t 1 'claude' C-m \; \
+      send-keys -t 2 'lazygit' C-m
+  else
+    if tmux has-session -t "$name" 2>/dev/null; then
+      tmux attach-session -t "$name"
+    else
+      tmux new-session -s "$name" -c "$PWD" \; \
+        split-window -h -c "$PWD" \; \
+        split-window -v -t 0 -c "$PWD" \; \
+        send-keys -t 0 'codex' C-m \; \
+        send-keys -t 1 'claude' C-m \; \
+        send-keys -t 2 'lazygit' C-m
+    fi
+  fi
 }
 
 # OpenJDK PATH
