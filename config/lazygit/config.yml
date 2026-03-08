@@ -2,7 +2,7 @@ gui:
   # 官方仅支持 auto|always；auto 表示仅在同一文件同时存在 staged/unstaged 时才分屏
   splitDiff: auto
   # 分屏时使用左右布局，避免上下分割影响阅读
-  mainPanelSplitMode: vertical
+  mainPanelSplitMode: horizontal
 
   # 启用 Nerd Fonts 图标（需要安装 Nerd Fonts）
   nerdFontsVersion: "3"
@@ -56,3 +56,8 @@ keybinding:
   universal:
     scrollUpMain-alt2: <c-u>
     scrollDownMain-alt2: <c-d>
+  files:
+    # Enter 键：进入文件 stage 操作（打开 staging 面板进行逐行暂存）
+    openFile: <enter>
+    # 空格键：toggle staged/unstaged
+    toggleStaged: <space>
