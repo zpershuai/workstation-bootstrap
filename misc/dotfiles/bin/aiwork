@@ -1,0 +1,34 @@
+#!/bin/zsh
+
+# aiwork: create tmux session/window with codex, claude, and lazygit
+
+local parent child name pane_count
+parent="$(basename "$(dirname "$PWD")" | tr '. ' '__')"
+child="$(basename "$PWD" | tr '. ' '__')"
+name="${parent}-${child}"
+
+if [[ -n "$TMUX" ]]; then
+  # Already in tmux: reuse current window, kill other panes if any
+  pane_count=$(tmux list-panes | wc -l)
+  if [[ "$pane_count" -gt 1 ]]; then
+    tmux kill-pane -a
+  fi
+  # Now we have a single pane, split it into the desired layout
+  tmux split-window -h -c "$PWD" \; \
+    split-window -v -t 0 -c "$PWD" \; \
+    send-keys -t 0 'codex' C-m \; \
+    send-keys -t 1 'claude' C-m \; \
+    send-keys -t 2 'lazygit' C-m
+else
+  # Not in tmux: create new session
+  if tmux has-session -t "$name" 2>/dev/null; then
+    tmux attach-session -t "$name"
+  else
+    tmux new-session -s "$name" -c "$PWD" \; \
+      split-window -h -c "$PWD" \; \
+      split-window -v -t 0 -c "$PWD" \; \
+      send-keys -t 0 'codex' C-m \; \
+      send-keys -t 1 'claude' C-m \; \
+      send-keys -t 2 'lazygit' C-m
+  fi
+fi
