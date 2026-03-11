@@ -26,8 +26,8 @@ ensure_homebrew() {
     error "Missing curl. Fix: xcode-select --install"
   fi
 
-  warn "Homebrew missing; installing automatically."
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL "${BREW_INSTALL_URL}")"
+  warn "Homebrew missing; installing automatically. You may be prompted for your macOS password."
+  /bin/bash -c "$(curl -fsSL "${BREW_INSTALL_URL}")"
 
   if [[ -x /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
