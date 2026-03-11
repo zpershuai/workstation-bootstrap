@@ -40,7 +40,7 @@ This repository standardizes everything into a single source of truth and provid
 Setup is split into modules:
 
 1. **Environment gate** (`scripts/mac/check_env.sh`)  
-   Verify tools and auth (git/ssh/gh) before any clone/pull.
+   Verify tools and auth (git/ssh/gh) before any clone/pull, and auto-install Homebrew if missing.
 2. **Prerequisites** (Xcode CLT, oh-my-zsh install)
 3. **Fonts**  
    Copy fonts from `misc/fonts/` into `~/Library/Fonts`.

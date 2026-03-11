@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MANIFEST="${ROOT_DIR}/repos/repos.lock"
+BREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
 say() {
   local prefix="$1"
@@ -15,6 +16,28 @@ warn() { say "[warn]" "$*"; }
 error() { say "[error]" "$*"; exit 1; }
 hint() { say "[hint]" "$*"; }
 
+ensure_homebrew() {
+  if command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+
+  check "homebrew"
+  if ! command -v curl >/dev/null 2>&1; then
+    error "Missing curl. Fix: xcode-select --install"
+  fi
+
+  warn "Homebrew missing; installing automatically."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL "${BREW_INSTALL_URL}")"
+
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+
+  command -v brew >/dev/null 2>&1 || error "Homebrew installation finished, but brew is still unavailable in PATH."
+}
+
 check "platform"
 if [[ "$(uname -s)" != "Darwin" ]]; then
   error "Unsupported platform. This script only supports macOS (Darwin)."
@@ -23,9 +46,12 @@ fi
 check "required commands"
 command -v bash >/dev/null 2>&1 || error "Missing bash. Fix: xcode-select --install"
 command -v git >/dev/null 2>&1 || error "Missing git. Fix: xcode-select --install"
-command -v brew >/dev/null 2>&1 || error "Missing Homebrew. Fix: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
-command -v node >/dev/null 2>&1 || error "Missing Node.js. Fix: brew install node"
-command -v npm >/dev/null 2>&1 || error "Missing npm. Fix: brew install node"
+command -v curl >/dev/null 2>&1 || error "Missing curl. Fix: xcode-select --install"
+ensure_homebrew
+
+if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+  warn "Node.js/npm missing; setup will install them later via Homebrew."
+fi
 
 check "repos manifest"
 if [[ ! -f "${MANIFEST}" ]]; then

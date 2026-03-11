@@ -14,6 +14,7 @@
     "opencode": false,
     "openclaw": true
   },
+  "currentProviderClaude": "72d5ad66-7d79-4faa-ab3f-c5a5fc9881e0",
   "skillSyncMethod": "auto",
   "preferredTerminal": "ghostty"
 }
