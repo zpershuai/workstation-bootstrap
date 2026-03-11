@@ -7,6 +7,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib.sh"
 if ! command -v brew >/dev/null 2>&1; then
   log "Homebrew not found; installing"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  load_homebrew_env
 fi
 
 BREWFILE="${ROOT_DIR}/brew/Brewfile"

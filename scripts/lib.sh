@@ -9,6 +9,20 @@ log() {
   printf '[dotfiles] %s\n' "$*"
 }
 
+load_homebrew_env() {
+  if command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+}
+
+load_homebrew_env
+
 is_dry_run() {
   [[ "${DRY_RUN}" == "1" ]]
 }
