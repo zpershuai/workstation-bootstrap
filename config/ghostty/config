@@ -6,6 +6,9 @@
 font-family = "SauceCodeProNerdFontCompleteNerdFont Nerd Font"
 font-size = 16
 font-style = "Regular"
+# Force CJK glyphs to a single macOS Chinese font so mixed Chinese text
+# doesn't bounce between fallback fonts with different metrics.
+font-codepoint-map = U+3000-U+303F,U+3400-U+4DBF,U+4E00-U+9FFF,U+F900-U+FAFF,U+FF00-U+FFEF=Hiragino Sans GB
 bold-is-bright = true
 
 # =============================================================================

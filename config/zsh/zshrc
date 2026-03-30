@@ -50,3 +50,7 @@ if [[ ! -o login && -f "${HOME}/.zprofile" ]]; then
   source "${HOME}/.zprofile"
 fi
 export DISABLE_AUTOUPDATER=1
+
+# Added by Antigravity
+export PATH="/Users/perry/.antigravity/antigravity/bin:$PATH"
+export PATH="/Users/perry/.openclaw-wrapper/bin:$PATH"
