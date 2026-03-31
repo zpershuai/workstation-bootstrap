@@ -4,12 +4,49 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 	"text/tabwriter"
 
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 	"github.com/zpershuai/dwell/internal/pkg/config"
+	"github.com/zpershuai/dwell/internal/pkg/modules"
 )
+
+func getCurrentShell() string {
+	shell := os.Getenv("SHELL")
+	if shell == "" {
+		return "unknown"
+	}
+	return filepath.Base(shell)
+}
+
+func isZshOnlyModule(moduleName string) bool {
+	zshOnlyModules := []string{"zsh-syntax-highlighting", "zsh-navigation-tools"}
+	for _, zshModule := range zshOnlyModules {
+		if strings.EqualFold(moduleName, zshModule) {
+			return true
+		}
+	}
+	return false
+}
+
+func filterModulesByShell(mods []modules.Module, currentShell string) []modules.Module {
+	currentShell = strings.ToLower(currentShell)
+
+	if currentShell != "zsh" {
+		filtered := make([]modules.Module, 0, len(mods))
+		for _, mod := range mods {
+			if !isZshOnlyModule(mod.Name()) {
+				filtered = append(filtered, mod)
+			}
+		}
+		return filtered
+	}
+
+	return mods
+}
 
 func statusCommand() *cli.Command {
 	return &cli.Command{
@@ -38,12 +75,17 @@ The status column shows:
 				return nil
 			}
 
+			currentShell := getCurrentShell()
+			filteredMods := filterModulesByShell(mods, currentShell)
+
+			fmt.Printf("Current Shell: %s\n\n", color.CyanString(currentShell))
+
 			// Setup table output
 			w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 			fmt.Fprintln(w, "MODULE\tTYPE\tSTATUS\tREF\tMESSAGE")
 			fmt.Fprintln(w, "------\t----\t------\t---\t-------")
 
-			for _, mod := range mods {
+			for _, mod := range filteredMods {
 				state, err := mod.Status(ctx)
 				if err != nil {
 					fmt.Fprintf(w, "%s\t%s\terror\t-\t%v\n",
@@ -78,7 +120,11 @@ The status column shows:
 
 			w.Flush()
 
-			fmt.Printf("\nTotal: %d modules\n", len(mods))
+			fmt.Printf("\nTotal: %d modules", len(filteredMods))
+			if currentShell != "zsh" {
+				fmt.Printf(" (%d zsh-only modules hidden)", len(mods)-len(filteredMods))
+			}
+			fmt.Println()
 
 			return nil
 		},
