@@ -94,7 +94,7 @@ PY
     [[ -z "${cask}" ]] && continue
 
     if brew list --cask "${cask}" >/dev/null 2>&1; then
-      cask_skip_list+=("${cask}")
+      # Already managed by Homebrew; let brew bundle handle upgrades.
       continue
     fi
 

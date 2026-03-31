@@ -9,7 +9,6 @@ log "Linking dotfiles"
 safe_link "${ROOT_DIR}/config/zsh/zshrc" "${HOME}/.zshrc"
 safe_link "${ROOT_DIR}/config/zsh/zprofile" "${HOME}/.zprofile"
 safe_link "${ROOT_DIR}/config/shell/profile" "${HOME}/.profile"
-safe_link "${HOME}/.tmux/.tmux.conf" "${HOME}/.tmux.conf"
 safe_link "${ROOT_DIR}/config/git/gitconfig" "${HOME}/.gitconfig"
 safe_link "${ROOT_DIR}/config/git/gitignore_global" "${HOME}/.gitignore_global"
 
@@ -45,6 +44,8 @@ if [[ -x "${TMUX_INSTALL}" ]]; then
     bash "${TMUX_INSTALL}"
   fi
 fi
+
+safe_link "${ROOT_DIR}/config/tmux/tmux.conf" "${HOME}/.tmux.conf"
 
 # Oh My Zsh third-party plugins
 ensure_dir "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"

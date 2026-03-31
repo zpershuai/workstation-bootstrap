@@ -7,7 +7,8 @@ This document inventories dotfiles and config directories found in the current h
 - `~/.zshrc` / `~/.zprofile`: legacy zsh runtime and login configuration kept as fallback.
 - `~/.config/fish/`: primary interactive shell configuration.
 - `~/.config/starship.toml`: shared prompt configuration for fish.
-- `~/.tmux.conf` / `~/.tmux/`: tmux configuration and plugin data.
+- `~/.tmux.conf`: repo-managed tmux entrypoint that layers local overrides on top of the external tmux repo.
+- `~/.tmux/`: external tmux configuration repo and plugin data.
 - `~/.gitconfig`: Git user config (name/email, aliases, etc.).
 - `~/.profile`: legacy shell profile; may be used by non-zsh shells.
 - `~/.ssh/`: SSH keys and config (sensitive; do not commit).
@@ -40,6 +41,7 @@ These dotfile directories are Git repositories. If the remote repo name starts w
 ## Notes for migration
 
 - Prefer moving shell/editor configs into `config/` and symlinking via `scripts/mac/30_dotfiles.sh`.
-- Ghostty follows the login shell, so fish becomes active after `chsh -s "$(command -v fish)"`.
+- Ghostty starts fish explicitly from `config/ghostty/config`.
+- `~/.tmux.conf` should stay linked to `config/tmux/tmux.conf`, which sources `~/.tmux/.tmux.conf` before applying repo-local overrides.
 - Keep secrets and private keys out of git (SSH keys, tokens, API keys).
 - Cache/history directories should stay local and untracked.

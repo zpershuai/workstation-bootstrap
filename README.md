@@ -131,7 +131,7 @@ This keeps versioning clean and makes the setup reproducible.
 Primary interactive shell is `fish`, with `starship` as the prompt.
 
 - `fish`, `starship`, `fzf`, and `zoxide` are installed from `brew/Brewfile`
-- `ghostty` keeps using the account's login shell
+- `ghostty` is configured to start `fish` explicitly
 - after bootstrap, switch the login shell with:
 
 ```bash
@@ -167,11 +167,14 @@ Run pieces
 
 bash scripts/mac/check_env.sh
 bash scripts/mac/05_fonts.sh
+bash scripts/mac/10_brew.sh
 bash scripts/mac/backup_test.sh
 bash scripts/mac/checkhealth.sh
 bash scripts/mac/dotfiles_only.sh
 bash scripts/mac/25_repos.sh
 bash scripts/mac/30_dotfiles.sh
+
+`bash scripts/mac/10_brew.sh` syncs `brew/Brewfile`: it installs missing dependencies and upgrades outdated Homebrew-managed formulae/casks. To remove packages no longer present in `brew/Brewfile`, run `brew bundle cleanup --file brew/Brewfile --force`.
 
 ⸻
 
@@ -211,7 +214,9 @@ Shell layout
 	•	~/.config/starship.toml: symlink to config/starship.toml
 	•	~/.zshrc: symlink to config/zsh/zshrc (legacy fallback)
 	•	~/.zprofile: symlink to config/zsh/zprofile (legacy login-shell fallback)
-	•	Ghostty follows the login shell, so run `chsh -s "$(command -v fish)"` to make fish the default
+	•	~/.tmux.conf: symlink to config/tmux/tmux.conf (repo-managed tmux entrypoint)
+	•	config/tmux/tmux.conf sources ~/.tmux/.tmux.conf from the external tmux repo, then applies local overrides like the default shell
+	•	Ghostty starts fish explicitly; run `chsh -s "$(command -v fish)"` to make other login-shell consumers default to fish too
 
 Git config
 	•	~/.gitconfig includes ~/.config/git/.gitconfig.base and ~/.gitconfig.local
