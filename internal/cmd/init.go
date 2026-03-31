@@ -8,7 +8,6 @@ import (
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 	"github.com/zpershuai/dwell/internal/pkg/config"
-	"github.com/zpershuai/dwell/internal/pkg/git"
 )
 
 func initCommand() *cli.Command {
@@ -28,7 +27,7 @@ This command will:
 			},
 		},
 		Action: func(c *cli.Context) error {
-			rootDir := getRootDir()
+			rootDir := config.GetRootDir()
 			yamlPath := filepath.Join(rootDir, "dwell.yaml")
 
 			// Check if dwell.yaml already exists
@@ -67,23 +66,5 @@ This command will:
 			
 			return nil
 		},
-	}
-}
-
-// Helper to print git config details
-func printGitConfig(cfg git.Config) {
-	fmt.Printf("git:\n")
-	fmt.Printf("  - name: %s\n", cfg.Name)
-	fmt.Printf("    url: %s\n", cfg.URL)
-	fmt.Printf("    path: %s\n", cfg.Path)
-	if cfg.Ref != "" {
-		fmt.Printf("    ref: %s\n", cfg.Ref)
-	}
-	if len(cfg.Links) > 0 {
-		fmt.Printf("    links:\n")
-		for _, link := range cfg.Links {
-			fmt.Printf("      - from: %s\n", link.From)
-			fmt.Printf("        to: %s\n", link.To)
-		}
 	}
 }

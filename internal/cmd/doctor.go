@@ -7,6 +7,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
+	"github.com/zpershuai/dwell/internal/pkg/config"
 	"github.com/zpershuai/dwell/internal/pkg/modules"
 )
 
@@ -24,14 +25,14 @@ Checks include:
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
 			
-			_, registry, err := loadConfig()
+			appCfg, err := config.LoadConfig(config.GetRootDir())
 			if err != nil {
 				return err
 			}
 
 			color.Blue("Running health checks...\n")
 
-			mods := registry.List()
+			mods := appCfg.Registry.List()
 			totalChecks := 0
 			passedChecks := 0
 			failedChecks := 0

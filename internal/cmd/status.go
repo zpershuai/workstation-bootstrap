@@ -8,6 +8,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
+	"github.com/zpershuai/dwell/internal/pkg/config"
 )
 
 func statusCommand() *cli.Command {
@@ -26,12 +27,12 @@ The status column shows:
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
 			
-			_, registry, err := loadConfig()
+			appCfg, err := config.LoadConfig(config.GetRootDir())
 			if err != nil {
 				return err
 			}
 
-			mods := registry.List()
+			mods := appCfg.Registry.List()
 			if len(mods) == 0 {
 				color.Yellow("No modules configured")
 				return nil

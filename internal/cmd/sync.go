@@ -7,6 +7,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
+	"github.com/zpershuai/dwell/internal/pkg/config"
 	"github.com/zpershuai/dwell/internal/pkg/modules"
 )
 
@@ -29,11 +30,10 @@ Examples:
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
 			
-			cfg, registry, err := loadConfig()
+			appCfg, err := config.LoadConfig(config.GetRootDir())
 			if err != nil {
 				return err
 			}
-			_ = cfg
 
 			dryRun := c.Bool("dry-run")
 			if dryRun {
@@ -44,17 +44,15 @@ Examples:
 			var modulesToSync []modules.Module
 			
 			if c.NArg() == 0 {
-				// Sync all modules
-				modulesToSync = registry.List()
+				modulesToSync = appCfg.Registry.List()
 				if len(modulesToSync) == 0 {
 					color.Yellow("No modules configured")
 					return nil
 				}
 				color.Blue("Syncing all %d modules...\n", len(modulesToSync))
 			} else {
-				// Sync specific module
 				moduleName := c.Args().First()
-				module, found := registry.Get(moduleName)
+				module, found := appCfg.Registry.Get(moduleName)
 				if !found {
 					return fmt.Errorf("module %q not found", moduleName)
 				}
