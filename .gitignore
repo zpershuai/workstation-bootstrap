@@ -11,6 +11,9 @@
 # Build artifacts
 bin/
 
+# Review reports
+docs/review/
+
 *.swp
 *.swo
 *~
