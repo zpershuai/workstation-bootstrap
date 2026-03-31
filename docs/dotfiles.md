@@ -4,8 +4,9 @@ This document inventories dotfiles and config directories found in the current h
 
 ## Top-level dotfiles (home)
 
-- `~/.zshrc` / `~/.zprofile`: zsh runtime and login configuration.
-- `~/.oh-my-zsh/`: Oh My Zsh framework and plugins.
+- `~/.zshrc` / `~/.zprofile`: legacy zsh runtime and login configuration kept as fallback.
+- `~/.config/fish/`: primary interactive shell configuration.
+- `~/.config/starship.toml`: shared prompt configuration for fish.
 - `~/.tmux.conf` / `~/.tmux/`: tmux configuration and plugin data.
 - `~/.gitconfig`: Git user config (name/email, aliases, etc.).
 - `~/.profile`: legacy shell profile; may be used by non-zsh shells.
@@ -26,7 +27,6 @@ This document inventories dotfiles and config directories found in the current h
 
 ## XDG config directory
 
-- `~/.config/fish/`: fish shell configuration.
 - `~/.config/karabiner/`: Karabiner-Elements rules and profiles.
 - `~/.config/nvim/`: Neovim configuration.
 - `~/.config/uv/`: uv (Python tool) settings.
@@ -37,10 +37,9 @@ These dotfile directories are Git repositories. If the remote repo name starts w
 
 - `~/.tmux/` -> `git@github.com:zpershuai/tmux.git` (personal)
 - `~/.config/nvim/` -> `git@github.com:zpershuai/nvim.git` (personal)
-- `~/.oh-my-zsh/` -> `https://github.com/ohmyzsh/ohmyzsh.git`
-
 ## Notes for migration
 
 - Prefer moving shell/editor configs into `config/` and symlinking via `scripts/mac/30_dotfiles.sh`.
+- Ghostty follows the login shell, so fish becomes active after `chsh -s "$(command -v fish)"`.
 - Keep secrets and private keys out of git (SSH keys, tokens, API keys).
 - Cache/history directories should stay local and untracked.

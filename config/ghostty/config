@@ -85,7 +85,8 @@ cursor-style-blink = false
 # =============================================================================
 # Shell Integration
 # =============================================================================
-# Use login shell (matching iTerm2 behavior)
+# Start fish explicitly so Ghostty doesn't fall back to a restored zsh session.
+command = /opt/homebrew/bin/fish
 shell-integration = detect
 
 # =============================================================================

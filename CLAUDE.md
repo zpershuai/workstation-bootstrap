@@ -54,7 +54,7 @@ Modules are named with numeric prefixes (`NN_topic.sh`) to enforce execution ord
 | Module | Purpose |
 |--------|---------|
 | `check_env.sh` | Environment gate (verify git/ssh/gh) |
-| `00_prereq.sh` | System prerequisites (Xcode CLT, oh-my-zsh) |
+| `00_prereq.sh` | System prerequisites (Xcode CLT, Homebrew, core tools) |
 | `05_fonts.sh` | Copy fonts from `misc/fonts/` to `~/Library/Fonts` |
 | `10_brew.sh` / `10_apt.sh` | Package manager installation and bundle |
 | `20_npm.sh` | Global npm packages |
@@ -110,14 +110,16 @@ The `25_repos.sh` module:
 
 After cloning, symlinks are created separately in `30_dotfiles.sh` to point from target locations (e.g., `~/.config/nvim -> ~/.dotfiles.d/repos/nvim`).
 
-### Oh My Zsh
+### Shell Stack
 
-Oh My Zsh is installed via the official script during `00_prereq.sh`:
+The primary shell stack is `fish + starship`, installed via `brew/Brewfile`.
+
+Ghostty continues to use the user's login shell. To make fish the default shell after bootstrap:
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chsh -s "$(command -v fish)"
 ```
 
-It is **not** tracked in `repos/repos.lock` since the installer manages its own updates.
+Legacy `zsh` config remains in `config/zsh/` as a fallback path for tools or sessions that still expect it.
 
 ### Safety & Idempotency
 
@@ -132,7 +134,7 @@ It is **not** tracked in `repos/repos.lock` since the installer manages its own 
 - **Indentation**: 2 spaces; avoid tabs
 - **Script naming**: `NN_topic.sh` to preserve execution order
 - **Dotfile naming**: Repo dotfiles should be non-hidden (no leading dot) and linked to hidden targets in `$HOME`
-  - Example: `config/zsh/zshrc` → `~/.zshrc`
+  - Example: `config/fish/config.fish` → `~/.config/fish/config.fish`
   - Example: `config/git/gitconfig` → `~/.gitconfig`
 - **No formatter**: Keep scripts readable and defensive
 - **Error handling**: Always use `set -euo pipefail`

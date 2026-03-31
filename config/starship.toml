@@ -1,0 +1,53 @@
+add_newline = true
+format = "$username$hostname$directory$git_branch$git_status$fill$time$line_break$nodejs$python$cmd_duration$character"
+
+[username]
+show_always = true
+style_user = "bold #ffb454"
+style_root = "bold red"
+format = "[# $user]($style) "
+
+[hostname]
+ssh_only = false
+style = "bold #8ecae6"
+format = "[on $hostname]($style) "
+
+[directory]
+truncation_length = 3
+truncate_to_repo = false
+style = "bold #7bd389"
+format = "[in $path]($style) "
+
+[git_branch]
+symbol = "git:"
+style = "bold #ffd166"
+format = "[via $symbol$branch]($style) "
+
+[git_status]
+style = "bold #ff6b6b"
+format = "([$all_status$ahead_behind]($style) )"
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+style = "dimmed white"
+format = "[$time]($style)"
+
+[nodejs]
+format = "[node $version](bold #4ade80) "
+
+[python]
+format = "[py $version](bold #60a5fa) "
+
+[cmd_duration]
+min_time = 500
+style = "dimmed white"
+format = "[took $duration]($style) "
+
+[character]
+success_symbol = "[›](bold #7bd389)"
+error_symbol = "[›](bold #ff6b6b)"
+vimcmd_symbol = "[‹](bold #ffd166)"

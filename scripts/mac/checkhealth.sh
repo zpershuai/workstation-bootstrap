@@ -32,8 +32,10 @@ expect_link "${HOME}/.dotfiles.d/repos/nvim" "${HOME}/.config/nvim"
 expect_link "${HOME}/.dotfiles.d/repos/tmux" "${HOME}/.tmux"
 expect_link "${HOME}/.dotfiles.d/repos/claudecode_dotfiles" "${HOME}/.claude"
 expect_link "${ROOT_DIR}/misc/dotfiles" "${HOME}/.dotfiles"
+expect_link "${ROOT_DIR}/config/fish" "${HOME}/.config/fish"
 expect_link "${ROOT_DIR}/config/fzf" "${HOME}/.config/fzf"
 expect_link "${ROOT_DIR}/config/ghostty" "${HOME}/.config/ghostty"
+expect_link "${ROOT_DIR}/config/starship.toml" "${HOME}/.config/starship.toml"
 expect_link "${ROOT_DIR}/config/yazi" "${HOME}/.config/yazi"
 
 expect_link "${ROOT_DIR}/config/zsh/zshrc" "${HOME}/.zshrc"
@@ -43,9 +45,21 @@ expect_link "${HOME}/.tmux/.tmux.conf" "${HOME}/.tmux.conf"
 expect_link "${ROOT_DIR}/config/git/gitconfig" "${HOME}/.gitconfig"
 expect_link "${ROOT_DIR}/config/git/gitconfig.base" "${HOME}/.config/git/.gitconfig.base"
 
-log "Checking oh-my-zsh"
-if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
-  warn "Missing ~/.oh-my-zsh"
+log "Checking shell runtime"
+if command -v fish >/dev/null 2>&1; then
+  log "OK: fish present"
+else
+  warn "Missing fish in PATH"
+fi
+
+if command -v starship >/dev/null 2>&1; then
+  log "OK: starship present"
+else
+  warn "Missing starship in PATH"
+fi
+
+if [[ "${SHELL:-}" != *"fish" ]]; then
+  warn "Login shell is not fish; run 'chsh -s $(command -v fish)' after install if you want fish as default"
 fi
 
 log "Checking fonts"

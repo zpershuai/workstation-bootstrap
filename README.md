@@ -14,7 +14,7 @@ I already have a working macOS setup. The problem is that my configuration is sc
 
 1. Homebrew installed packages (CLI tools + GUI apps via cask)
 2. Global npm tools (e.g., codex / gemini cli and other developer utilities)
-3. Core dev trio: **zsh + tmux + neovim**
+3. Core dev trio: **fish + tmux + neovim**
 4. Dotfiles and configs distributed in different places
 5. Some configs are **their own Git repos** (e.g., `~/.config/nvim` might be managed elsewhere)
 
@@ -41,12 +41,12 @@ Setup is split into modules:
 
 1. **Environment gate** (`scripts/mac/check_env.sh`)  
    Verify tools and auth (git/ssh/gh) before any clone/pull, and auto-install Homebrew if missing.
-2. **Prerequisites** (Xcode CLT, oh-my-zsh install)
+2. **Prerequisites** (Xcode CLT, Homebrew, core tools)
 3. **Fonts**  
    Copy fonts from `misc/fonts/` into `~/Library/Fonts`.
 4. **Install software**  
    - `brew bundle` from `brew/Brewfile`
-   - Includes `yazi` and common preview/search dependencies (`chafa`, `sevenzip`, `fzf`, `zoxide`, `jq`)
+   - Includes `fish`, `starship`, `yazi`, and common preview/search dependencies (`chafa`, `sevenzip`, `fzf`, `zoxide`, `jq`)
    - `npm install -g` from `npm/packages.txt`
 5. **External config repos**  
    Manifest-driven clone/pull from `repos/repos.lock`.
@@ -96,6 +96,8 @@ repos.lock               # external git repos manifest (url + dest + ref)
 config/
 zsh/zshrc
 zsh/zprofile
+fish/config.fish
+starship.toml
 tmux/tmux.conf
 git/gitconfig
 git/gitignore_global
@@ -125,12 +127,18 @@ I want a clean bootstrap repo, not a nested Git mess.
 
 This keeps versioning clean and makes the setup reproducible.
 
-### Oh My Zsh
-Oh My Zsh is installed via the official script during prerequisites:
+### Shell stack
+Primary interactive shell is `fish`, with `starship` as the prompt.
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+- `fish`, `starship`, `fzf`, and `zoxide` are installed from `brew/Brewfile`
+- `ghostty` keeps using the account's login shell
+- after bootstrap, switch the login shell with:
 
-It is not tracked in `repos/repos.lock`.
+```bash
+chsh -s "$(command -v fish)"
+```
+
+Legacy `zsh` config remains in-repo as a fallback for tools that still expect `~/.zshrc` or `~/.zprofile`.
 
 ### Manifest format (example)
 `repos/repos.lock`:
@@ -198,10 +206,12 @@ Design principles
 	•	Backups: existing files are moved to ~/.dotfiles_backup/<timestamp>/
 	•	External repos: git-backed configs are cloned into ~/.dotfiles.d/repos and linked
 
-Zsh layout
-	•	~/.zshrc: symlink to config/zsh/zshrc (managed by this repo)
-	•	~/.zprofile: symlink to config/zsh/zprofile (login-shell config)
-	•	oh-my-zsh installer runs with KEEP_ZSHRC=yes, so setup does not edit ~/.zshrc directly
+Shell layout
+	•	~/.config/fish -> config/fish (primary interactive shell config)
+	•	~/.config/starship.toml: symlink to config/starship.toml
+	•	~/.zshrc: symlink to config/zsh/zshrc (legacy fallback)
+	•	~/.zprofile: symlink to config/zsh/zprofile (legacy login-shell fallback)
+	•	Ghostty follows the login shell, so run `chsh -s "$(command -v fish)"` to make fish the default
 
 Git config
 	•	~/.gitconfig includes ~/.config/git/.gitconfig.base and ~/.gitconfig.local
