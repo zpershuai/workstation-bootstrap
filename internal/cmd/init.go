@@ -17,42 +17,62 @@ func initCommand() *cli.Command {
 		Description: `Initialize dwell by migrating from repos.lock to dwell.yaml.
 
 This command will:
-  1. Read the existing repos.lock file
-  2. Generate a new dwell.yaml with the same configuration
-  3. Preserve all module settings including links`,
+  1. Read the existing repos.lock file from current directory
+  2. Create ~/.config/dwell/ directory if needed
+  3. Copy configuration to ~/.config/dwell/
+  4. Preserve all module settings including links
+
+You can also use --output to specify a custom config directory.`,
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:  "force",
 				Usage: "Overwrite existing dwell.yaml",
 			},
+			&cli.StringFlag{
+				Name:  "output",
+				Usage: "Output directory for config (default: ~/.config/dwell/)",
+			},
 		},
 		Action: func(c *cli.Context) error {
-			rootDir := config.GetRootDir()
-			yamlPath := filepath.Join(rootDir, "dwell.yaml")
-
-			// Check if dwell.yaml already exists
-			if _, err := os.Stat(yamlPath); err == nil && !c.Bool("force") {
-				return fmt.Errorf("dwell.yaml already exists. Use --force to overwrite")
+			var outputDir string
+			if c.String("output") != "" {
+				outputDir = c.String("output")
+			} else {
+				xdgConfig := os.Getenv("XDG_CONFIG_HOME")
+				if xdgConfig == "" {
+					home, err := os.UserHomeDir()
+					if err != nil {
+						return fmt.Errorf("failed to get home directory: %w", err)
+					}
+					xdgConfig = filepath.Join(home, ".config")
+				}
+				outputDir = filepath.Join(xdgConfig, "dwell")
 			}
 
-			// Load from repos.lock
-			loader := config.NewLoader(rootDir)
+			if err := os.MkdirAll(outputDir, 0755); err != nil {
+				return fmt.Errorf("failed to create config directory: %w", err)
+			}
+
+			yamlPath := filepath.Join(outputDir, "dwell.yaml")
+
+			if _, err := os.Stat(yamlPath); err == nil && !c.Bool("force") {
+				return fmt.Errorf("dwell.yaml already exists at %s. Use --force to overwrite", yamlPath)
+			}
+
+			loader := config.NewLoader(".")
 			cfg, err := loader.Load()
 			if err != nil {
-				return fmt.Errorf("failed to load repos.lock: %w", err)
+				return fmt.Errorf("failed to load repos.lock from current directory: %w", err)
 			}
 
-			// Update to new format
 			cfg.Version = "1.0"
-			
-			// Save as dwell.yaml
+
 			if err := loader.SaveYAML(cfg, yamlPath); err != nil {
 				return fmt.Errorf("failed to save dwell.yaml: %w", err)
 			}
 
-			color.Green("✓ Created dwell.yaml with %d git modules", len(cfg.Git))
-			
-			// Print sample config
+			color.Green("✓ Created dwell.yaml at %s with %d git modules", outputDir, len(cfg.Git))
+
 			fmt.Println("\nGenerated configuration:")
 			fmt.Println("---")
 			for _, gitCfg := range cfg.Git {
@@ -61,9 +81,10 @@ This command will:
 					fmt.Printf("      link: %s -> %s\n", link.From, link.To)
 				}
 			}
-			
-			fmt.Println("\nYou can now use 'dwell sync' to manage your modules.")
-			
+
+			fmt.Printf("\nYou can now use 'dwell sync' from anywhere to manage your modules.\n")
+			fmt.Printf("Config location: %s\n", outputDir)
+
 			return nil
 		},
 	}

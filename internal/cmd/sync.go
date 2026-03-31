@@ -29,8 +29,8 @@ Examples:
 		},
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
-			
-			appCfg, err := config.LoadConfig(config.GetRootDir())
+
+			appCfg, err := config.LoadConfig()
 			if err != nil {
 				return err
 			}
@@ -42,7 +42,7 @@ Examples:
 			}
 
 			var modulesToSync []modules.Module
-			
+
 			if c.NArg() == 0 {
 				modulesToSync = appCfg.Registry.List()
 				if len(modulesToSync) == 0 {
@@ -65,14 +65,14 @@ Examples:
 
 			for _, mod := range modulesToSync {
 				start := time.Now()
-				
+
 				if dryRun {
 					color.Cyan("[DRY-RUN] Would sync: %s", mod.Name())
 					continue
 				}
 
 				fmt.Printf("[%s] ", mod.Name())
-				
+
 				if err := mod.Sync(ctx); err != nil {
 					color.Red("✗ %v", err)
 					errorCount++

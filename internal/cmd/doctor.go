@@ -24,8 +24,8 @@ Checks include:
   - Files and directories exist`,
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
-			
-			appCfg, err := config.LoadConfig(config.GetRootDir())
+
+			appCfg, err := config.LoadConfig()
 			if err != nil {
 				return err
 			}
@@ -39,11 +39,11 @@ Checks include:
 
 			for _, mod := range mods {
 				fmt.Printf("\n[%s] %s\n", mod.Type(), mod.Name())
-				
+
 				results := mod.Check(ctx)
 				for _, result := range results {
 					totalChecks++
-					
+
 					switch result.Status {
 					case modules.StatusOK:
 						color.Green("  ✓ %s", result.Name)
@@ -62,16 +62,16 @@ Checks include:
 
 			fmt.Println()
 			fmt.Println("----------------------------------------")
-			
+
 			if failedChecks == 0 {
 				color.Green("✓ All checks passed (%d/%d)", passedChecks, totalChecks)
 				return nil
 			} else {
-				color.Yellow("⚠ Checks completed with issues (%d passed, %d failed)", 
+				color.Yellow("⚠ Checks completed with issues (%d passed, %d failed)",
 					passedChecks, failedChecks)
 				os.Exit(1)
 			}
-			
+
 			return nil
 		},
 	}

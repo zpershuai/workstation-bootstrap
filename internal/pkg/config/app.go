@@ -14,9 +14,13 @@ type AppConfig struct {
 	Registry *modules.Registry
 }
 
-func LoadConfig(rootDir string) (*AppConfig, error) {
-	loader := NewLoader(rootDir)
+func LoadConfig() (*AppConfig, error) {
+	rootDir, err := findConfigDir()
+	if err != nil {
+		return nil, err
+	}
 
+	loader := NewLoader(rootDir)
 	cfg, err := loader.Load()
 	if err != nil {
 		return nil, fmt.Errorf("failed to load config: %w", err)
@@ -40,39 +44,33 @@ func LoadConfig(rootDir string) (*AppConfig, error) {
 	}, nil
 }
 
-func GetRootDir() string {
-	cwd, err := os.Getwd()
-	if err == nil {
-		if hasConfig(cwd) {
-			return cwd
-		}
-	}
-
-	if envDir := os.Getenv("DWELL_ROOT"); envDir != "" {
+func findConfigDir() (string, error) {
+	if envDir := os.Getenv("DWELL_CONFIG"); envDir != "" {
 		if hasConfig(envDir) {
-			return envDir
+			return envDir, nil
 		}
 	}
 
-	execPath, err := os.Executable()
-	if err != nil {
-		execPath = os.Args[0]
-	}
-	execPath, _ = filepath.Abs(execPath)
-
-	if filepath.Base(filepath.Dir(execPath)) == "bin" {
-		execDir := filepath.Dir(filepath.Dir(execPath))
-		if hasConfig(execDir) {
-			return execDir
+	xdgConfig := os.Getenv("XDG_CONFIG_HOME")
+	if xdgConfig == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			return "", fmt.Errorf("failed to get home directory: %w", err)
 		}
+		xdgConfig = filepath.Join(home, ".config")
 	}
 
-	execDir := filepath.Dir(execPath)
-	if hasConfig(execDir) {
-		return execDir
+	dwellConfig := filepath.Join(xdgConfig, "dwell")
+	if hasConfig(dwellConfig) {
+		return dwellConfig, nil
 	}
 
-	return cwd
+	cwd, err := os.Getwd()
+	if err == nil && hasConfig(cwd) {
+		return cwd, nil
+	}
+
+	return "", fmt.Errorf("no configuration found in ~/.config/dwell/ or current directory (set DWELL_CONFIG to override)")
 }
 
 func hasConfig(dir string) bool {

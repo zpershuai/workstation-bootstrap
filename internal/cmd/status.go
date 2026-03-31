@@ -26,8 +26,8 @@ The status column shows:
   error   - Module has errors`,
 		Action: func(c *cli.Context) error {
 			ctx := context.Background()
-			
-			appCfg, err := config.LoadConfig(config.GetRootDir())
+
+			appCfg, err := config.LoadConfig()
 			if err != nil {
 				return err
 			}
@@ -46,7 +46,7 @@ The status column shows:
 			for _, mod := range mods {
 				state, err := mod.Status(ctx)
 				if err != nil {
-					fmt.Fprintf(w, "%s\t%s\terror\t-\t%v\n", 
+					fmt.Fprintf(w, "%s\t%s\terror\t-\t%v\n",
 						mod.Name(), mod.Type(), err)
 					continue
 				}
@@ -77,9 +77,9 @@ The status column shows:
 			}
 
 			w.Flush()
-			
+
 			fmt.Printf("\nTotal: %d modules\n", len(mods))
-			
+
 			return nil
 		},
 	}
