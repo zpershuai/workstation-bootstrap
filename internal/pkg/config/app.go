@@ -41,6 +41,19 @@ func LoadConfig(rootDir string) (*AppConfig, error) {
 }
 
 func GetRootDir() string {
+	cwd, err := os.Getwd()
+	if err == nil {
+		if hasConfig(cwd) {
+			return cwd
+		}
+	}
+
+	if envDir := os.Getenv("DWELL_ROOT"); envDir != "" {
+		if hasConfig(envDir) {
+			return envDir
+		}
+	}
+
 	execPath, err := os.Executable()
 	if err != nil {
 		execPath = os.Args[0]
@@ -48,8 +61,26 @@ func GetRootDir() string {
 	execPath, _ = filepath.Abs(execPath)
 
 	if filepath.Base(filepath.Dir(execPath)) == "bin" {
-		return filepath.Dir(filepath.Dir(execPath))
+		execDir := filepath.Dir(filepath.Dir(execPath))
+		if hasConfig(execDir) {
+			return execDir
+		}
 	}
 
-	return filepath.Dir(execPath)
+	execDir := filepath.Dir(execPath)
+	if hasConfig(execDir) {
+		return execDir
+	}
+
+	return cwd
+}
+
+func hasConfig(dir string) bool {
+	if _, err := os.Stat(filepath.Join(dir, "dwell.yaml")); err == nil {
+		return true
+	}
+	if _, err := os.Stat(filepath.Join(dir, "repos", "repos.lock")); err == nil {
+		return true
+	}
+	return false
 }
