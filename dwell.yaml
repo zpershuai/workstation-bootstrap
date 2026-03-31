@@ -1,0 +1,78 @@
+# dwell.yaml
+# Dwell configuration file
+# This is the new format for managing your development environment.
+# Backward compatible with repos.lock - dwell will read repos.lock if this file doesn't exist.
+
+version: "1.0"
+
+# Git repositories to manage
+# Each repository can have:
+#   - name: Unique identifier
+#   - url: Git clone URL
+#   - path: Where to clone (supports ~ for home directory)
+#   - ref: Optional branch/tag/commit to track
+#   - links: Symlinks to create after syncing
+#   - post_sync: Optional script to run after sync
+
+git:
+  - name: nvim
+    url: git@github.com:zpershuai/nvim.git
+    path: ~/.dotfiles.d/repos/nvim
+    ref: main
+    links:
+      - from: ~/.dotfiles.d/repos/nvim
+        to: ~/.config/nvim
+
+  - name: tmux
+    url: git@github.com:zpershuai/tmux.git
+    path: ~/.dotfiles.d/repos/tmux
+    ref: main
+    links:
+      - from: ~/.dotfiles.d/repos/tmux
+        to: ~/.tmux
+    post_sync: ~/.tmux/install.sh
+
+  - name: claudecode_dotfiles
+    url: git@github.com:zpershuai/claudecode_dotfiles.git
+    path: ~/.dotfiles.d/repos/claudecode_dotfiles
+    ref: main
+    links:
+      - from: ~/.dotfiles.d/repos/claudecode_dotfiles
+        to: ~/.claude
+
+  - name: tpm
+    url: https://github.com/tmux-plugins/tpm.git
+    path: ~/.dotfiles.d/repos/tpm
+    ref: master
+    links:
+      - from: ~/.dotfiles.d/repos/tpm
+        to: ~/.tmux/plugins/tpm
+
+  - name: zsh-syntax-highlighting
+    url: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    path: ~/.dotfiles.d/repos/zsh-syntax-highlighting
+    ref: master
+    links:
+      - from: ~/.dotfiles.d/repos/zsh-syntax-highlighting
+        to: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+  - name: zsh-navigation-tools
+    url: git@github.com:psprint/zsh-navigation-tools.git
+    path: ~/.dotfiles.d/repos/zsh-navigation-tools
+    ref: main
+    links:
+      - from: ~/.dotfiles.d/repos/zsh-navigation-tools
+        to: ~/.oh-my-zsh/custom/plugins/zsh-navigation-tools
+
+# Future: Support for other module types
+# brew:
+#   file: brew/Brewfile
+#
+# npm:
+#   file: npm/packages.txt
+#
+# dotfiles:
+#   config_dir: config/
+#   links:
+#     - from: config/fish
+#       to: ~/.config/fish
