@@ -7,6 +7,10 @@
 # Editor & IDE
 .vscode/
 .idea/
+
+# Build artifacts
+bin/
+
 *.swp
 *.swo
 *~
