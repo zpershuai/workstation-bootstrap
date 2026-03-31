@@ -16,7 +16,14 @@ type Loader struct {
 	rootDir string
 }
 
-// NewLoader creates a new config loader
+func ExpandPath(path string) string {
+	if strings.HasPrefix(path, "~/") {
+		home, _ := os.UserHomeDir()
+		return filepath.Join(home, path[2:])
+	}
+	return path
+}
+
 func NewLoader(rootDir string) *Loader {
 	return &Loader{rootDir: rootDir}
 }
