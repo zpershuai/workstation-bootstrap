@@ -1,5 +1,15 @@
 # Interactive fish config (managed by workstation-bootstrap).
 
+# 光标与按键模式配置
+fish_vi_key_bindings
+set -g fish_vi_force_cursor 1
+set -g fish_cursor_default block blink
+set -g fish_cursor_insert block blink
+set -g fish_cursor_replace_one block blink
+set -g fish_cursor_replace block blink
+set -g fish_cursor_external block blink
+set -g fish_cursor_visual block blink
+
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx VISUAL nvim
