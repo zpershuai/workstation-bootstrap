@@ -172,3 +172,7 @@ function tmux_attach_on_ssh --on-event fish_login
     $HOME/.dotfiles/bin/tmwork
   end
 end
+
+# Ctrl-C: cancel current line and show new prompt on next line (like bash)
+# Must clear commandline first to avoid ^C⏎ artifacts
+bind \cc 'commandline ""; echo ""; commandline -f repaint'
