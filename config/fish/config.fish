@@ -101,6 +101,23 @@ if command -q starship
   starship init fish | source
 end
 
+# Fish 语法高亮颜色配置
+# 有效命令 -> 绿色 (与 starship success_symbol 一致)
+set -g fish_color_command '#7bd389' --bold
+
+# 无效/错误命令 -> 红色 (与 starship error_symbol 一致)
+set -g fish_color_error '#ff6b6b' --bold
+
+# 其他语法高亮配色
+set -g fish_color_keyword '#ffd166' --bold    # 关键字 (if, for, while)
+set -g fish_color_option '#8ecae6'            # 选项 (-flag)
+set -g fish_color_param '#ffb454'             # 参数
+set -g fish_color_redirection '#8ecae6'       # 重定向 (>, <, |)
+set -g fish_color_quote '#7bd389'             # 引号字符串
+set -g fish_color_comment 'brblack'           # 注释
+set -g fish_color_autosuggestion 'brblack'    # 自动建议
+set -g fish_color_valid_path --underline      # 存在的文件路径
+
 alias cat bat
 alias tmatt 'tmux att -t'
 alias tmls 'tmux ls'
