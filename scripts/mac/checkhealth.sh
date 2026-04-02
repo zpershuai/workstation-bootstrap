@@ -54,10 +54,26 @@ fi
 
 if command -v fish >/dev/null 2>&1; then
   fish_ctrl_c_binding="$(fish -C "source ${ROOT_DIR}/config/fish/config.fish" -c 'bind ctrl-c' 2>/dev/null | tail -n 1 || true)"
-  if [[ "${fish_ctrl_c_binding}" == "bind ctrl-c cancel-commandline" ]] || [[ "${fish_ctrl_c_binding}" == "bind --preset ctrl-c cancel-commandline" ]]; then
-    log "OK: fish ctrl-c binding cancels commandline"
+  if [[ "${fish_ctrl_c_binding}" == "bind ctrl-c 'commandline \"\"; echo \"\"; commandline -f repaint'" ]]; then
+    log "OK: fish ctrl-c binding clears commandline and repaints"
   else
     err "fish ctrl-c binding mismatch: ${fish_ctrl_c_binding:-<empty>}"
+    errors=$((errors + 1))
+  fi
+
+  fish_ctrl_a_binding="$(fish -C "source ${ROOT_DIR}/config/fish/config.fish" -c 'bind -M insert ctrl-a' 2>/dev/null | tail -n 1 || true)"
+  if [[ "${fish_ctrl_a_binding}" == "bind -M insert ctrl-a beginning-of-line" ]]; then
+    log "OK: fish ctrl-a binding moves to beginning of line"
+  else
+    err "fish ctrl-a binding mismatch: ${fish_ctrl_a_binding:-<empty>}"
+    errors=$((errors + 1))
+  fi
+
+  fish_ctrl_e_binding="$(fish -C "source ${ROOT_DIR}/config/fish/config.fish" -c 'bind -M insert ctrl-e' 2>/dev/null | tail -n 1 || true)"
+  if [[ "${fish_ctrl_e_binding}" == "bind -M insert ctrl-e end-of-line" ]]; then
+    log "OK: fish ctrl-e binding moves to end of line"
+  else
+    err "fish ctrl-e binding mismatch: ${fish_ctrl_e_binding:-<empty>}"
     errors=$((errors + 1))
   fi
 fi

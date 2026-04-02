@@ -2,6 +2,11 @@
 
 # 光标与按键模式配置
 fish_vi_key_bindings
+# Keep common readline-style navigation in vi mode.
+bind -M insert \ca beginning-of-line
+bind -M insert \ce end-of-line
+bind -M default \ca beginning-of-line
+bind -M default \ce end-of-line
 set -g fish_vi_force_cursor 1
 set -g fish_cursor_default block blink
 set -g fish_cursor_insert block blink
